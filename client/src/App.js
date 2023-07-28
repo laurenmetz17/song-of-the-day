@@ -7,6 +7,7 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Logout from './Components/Logout';
 import SongOfTheDay from './Components/SongOfTheDay';
+import CreatePost from './Components/CreatePost';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
         <Signup/>
         <Logout setUser={setUser}/>
         <SongOfTheDay/>
+        <CreatePost/>
       </UserContext.Provider>
     </div>
   );
