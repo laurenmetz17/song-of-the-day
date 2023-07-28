@@ -1,7 +1,13 @@
 
 function SongReturnCard({song}) {
     return (
-        <p>{song.title}</p>
+        <div className="song_return">
+            <img src={song.art} alt="album cover"></img>
+            <p>{song.title}</p>
+            <p>{song.artist}</p>
+            <button>Select This Song</button>
+        </div>
+
     )
 }
 
