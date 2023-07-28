@@ -4,7 +4,7 @@ import UserContext from './UserContext';
 function SongOfTheDay() {
 
     const user = useContext(UserContext);  
-    console.log(user)
+    //console.log(user.songs)
     return (
         <p>song</p>
     )

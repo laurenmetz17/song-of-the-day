@@ -27,6 +27,8 @@ function CreatePost() {
     function searchSong(e) {
         e.preventDefault()
         //figure out how to use the spotify api for cooler app
+
+        //check if song already exists first
         fetch(`https://itunes.apple.com/search?media=music&entity=song&term=${songForm.title}`)
         .then(resp => {
             if (resp.ok) {
