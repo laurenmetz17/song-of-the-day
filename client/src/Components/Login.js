@@ -10,7 +10,7 @@ function Login({setUser}) {
     })
 
     function updateLogin(e) {
-        const target = e.target.id
+        const target = e.target.name
         setLoginForm({...loginForm, [target] : e.target.value})
         setLogError(false)
     }
@@ -35,7 +35,7 @@ function Login({setUser}) {
                     //navigate('/songOfThePage')
                 }) 
             }
-            //else return unauthorized response
+            //else return unauthorized response and show error
             else {
                 
                 setLogError(true)
@@ -57,13 +57,13 @@ function Login({setUser}) {
                 <h1 className="headers">Login Here</h1>
                 <div className="inputs">
                     <label>Username</label>
-                    <input id="username" type="text" onChange={updateLogin}/>
+                    <input name="username" type="text" onChange={updateLogin}/>
                 </div>
                 <div className='inputs'>
                     <label>Password</label>
-                    <input id="password" type="text" onChange={updateLogin}/>
+                    <input name="password" type="text" onChange={updateLogin}/>
                 </div>
-                <input id="submit" type="submit" value="Submit"/>
+                <input name="submit" type="submit" value="Submit"/>
             </form>
             {logError ? <p style={{color: "red"}}>Invalid Username or Password</p> : null}
         </div>
