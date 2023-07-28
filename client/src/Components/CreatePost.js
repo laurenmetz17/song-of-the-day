@@ -1,15 +1,22 @@
 import {React, useContext, useState} from 'react'
 import UserContext from './UserContext';
+import SongReturnCard from './SongReturnCard';
 
 function CreatePost() {
 
     const user = useContext(UserContext); 
 
     const [songError, setSongError] = useState(false)
+    const [songReturn, setSongReturn] = useState([])
     const [songForm, setSongForm] = useState({
         title: "",
         artist: ""
     })
+
+    const songReturnItems = songReturn.map(song => {
+        return <SongReturnCard key={song.title} song={song}/>
+    })
+
 
     function updateSongForm(e) {
         setSongError(false)
@@ -31,12 +38,14 @@ function CreatePost() {
                         const songArt = songData.artworkUrl100
                         console.log(songData)
                         console.log(songArt)
+                        songForm.art = songArt
+                        setSongReturn([...songReturn, songForm])
+                        //render the songReturnCard with the song
                     }
                     else {
                         setSongError(true)
                     }
                     //could match song by track id
-
                 })
             }
             else {
@@ -64,6 +73,7 @@ function CreatePost() {
                 <input type="submit" value="Search Song"/>
             </form>
             {songError ? <p style={{color: "red"}}>Invalid Song</p> : null}
+            {songReturnItems}
         </div>
     )
 }
