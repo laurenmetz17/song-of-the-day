@@ -1,4 +1,5 @@
-//import {useNavigate} from 'react-router-dom';
+//import useNavigate from 'react-router-dom';
+//issue with react-router-dom
 
 function Logout({setUser}) {
     //const navigate = useNavigate()
@@ -13,7 +14,9 @@ function Logout({setUser}) {
             },
             body: JSON.stringify(null), 
         })
-        .then(resp => resp)
+        .then(resp => {
+            console.log(resp)
+        })
         .then(() => {
             setUser(null)
             //navigate('/login')

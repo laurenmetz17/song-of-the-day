@@ -1,17 +1,16 @@
 
 import './App.css';
 import {React, useEffect, useState,useContext, createContext} from 'react';
+import UserContext from './Components/UserContext';
 import NavBar from './Components/NavBar';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Logout from './Components/Logout';
+import SongOfTheDay from './Components/SongOfTheDay';
 
 function App() {
 
-  const UserContext = createContext()
   const [user, setUser] = useState(null)
-
-  
 
   //when creating a post the user will first search a song in top of form
   //then it will return that song and create it in the system if it doesnt already exist
@@ -23,6 +22,7 @@ function App() {
         <Login setUser={setUser}/>
         <Signup/>
         <Logout setUser={setUser}/>
+        <SongOfTheDay/>
       </UserContext.Provider>
     </div>
   );
