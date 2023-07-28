@@ -4,6 +4,7 @@ import {React, useEffect, useState,useContext, createContext} from 'react';
 import NavBar from './Components/NavBar';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
+import Logout from './Components/Logout';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <NavBar/>
         <Login setUser={setUser}/>
         <Signup/>
+        <Logout setUser={setUser}/>
       </UserContext.Provider>
     </div>
   );
