@@ -12,6 +12,24 @@ function App() {
 
   const [user, setUser] = useState(null)
 
+  useEffect(() => {
+    fetch("/me")
+    .then(resp => {
+      if (resp.ok) {
+        resp.json()
+        .then((currentUser) => {
+            setUser(currentUser)
+        }) 
+      }
+      else {
+        throw new Error(`HTTP error, status = ${resp.status}`);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    })
+  },[])
+
   //when creating a post the user will first search a song in top of form
   //then it will return that song and create it in the system if it doesnt already exist
   //then attatch song id to the post 
