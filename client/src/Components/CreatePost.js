@@ -1,12 +1,19 @@
-import {React, useContext} from 'react'
+import {React, useContext, useState} from 'react'
 import UserContext from './UserContext';
 
 function CreatePost() {
 
     const user = useContext(UserContext); 
 
-    function updateSongForm(e) {
+    const [songError, setSongError] = useState(false)
+    const [songForm, setSongForm] = useState({
+        title: "",
+        artist: ""
+    })
 
+    function updateSongForm(e) {
+        const target = e.target.name
+        setSongForm({...songForm, [target] : e.target.value})
     }
 
     return (

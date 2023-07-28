@@ -19,7 +19,8 @@ function Signup() {
     }
 
     function handleSignup(e) {
-        e.preventDefault();      
+        e.preventDefault();
+        //post to users      
         fetch('users', {
             method: 'POST',
             headers: {
