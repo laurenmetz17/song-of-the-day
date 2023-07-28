@@ -3,6 +3,7 @@ import './App.css';
 import {React, useEffect, useState,useContext, createContext} from 'react';
 import NavBar from './Components/NavBar';
 import Login from './Components/Login';
+import Signup from './Components/Signup';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <UserContext.Provider value={user}>
         <NavBar/>
         <Login setUser={setUser}/>
+        <Signup/>
       </UserContext.Provider>
     </div>
   );

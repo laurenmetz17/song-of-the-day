@@ -9,15 +9,6 @@ function Login({setUser}) {
         password: ""
     })
 
-    const [signupForm, setSignupForm] = useState({
-        name: "",
-        username: "",
-        password: "",
-        password_confirmation: ""
-    })
-
-
-
     function updateLogin(e) {
         const target = e.target.id
         setLoginForm({...loginForm, [target] : e.target.value})
@@ -60,18 +51,12 @@ function Login({setUser}) {
         e.target.children[2].children[1].value = ""
     }
 
-    function updateSignup(e) {
-        const target = e.target.name
-        setSignupForm({...signupForm, [target] : e.target.value})
-        //setSignupError(false)
-    }
-
     return (
         <div className='container'>
             <form id="login" className="forms" onSubmit={handleLogin}>
                 <h1 className="headers">Login Here</h1>
                 <div className="inputs">
-                    <label>Userame</label>
+                    <label>Username</label>
                     <input id="username" type="text" onChange={updateLogin}/>
                 </div>
                 <div className='inputs'>
