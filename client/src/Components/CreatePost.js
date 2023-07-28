@@ -14,7 +14,7 @@ function CreatePost() {
     })
 
     const songReturnItems = songReturn.map(song => {
-        return <SongReturnCard key={song.title} song={song}/>
+        return <SongReturnCard key={song.title} song={song} setSongReturn={setSongReturn}/>
     })
 
 

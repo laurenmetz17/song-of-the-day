@@ -1,6 +1,5 @@
 
-function SongReturnCard({song}) {
-    console.log(song)
+function SongReturnCard({song, setSongReturn}) {
 
     function selectSong(e) {
         e.preventDefault()
@@ -11,6 +10,7 @@ function SongReturnCard({song}) {
         //search for individual song in the database 
 
         //if not post to the backend
+        console.log(song)
         fetch('songs', {
             method: 'POST',
             headers: {
@@ -23,11 +23,10 @@ function SongReturnCard({song}) {
                     resp.json()
                     .then((newSong) => {
                         console.log(newSong)
-                        //setSongs([...songs, newSong]);
+                        setSongReturn([])
                     })
                 }
                 else {
-                    //setSongError(true)
                     console.log(resp)
                 }
             });
