@@ -7,7 +7,7 @@ class User < ApplicationRecord
     
     has_many :posts
     has_many :songs, through: :posts
-    has_many :playlist
+    has_many :playlists
 
     has_secure_password
 end
