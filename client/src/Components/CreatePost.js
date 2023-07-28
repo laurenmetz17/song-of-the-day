@@ -25,10 +25,8 @@ function CreatePost() {
     }
 
     function searchSong(e) {
-        e.preventDefault()
         //figure out how to use the spotify api for cooler app
-
-        //check if song already exists first
+        e.preventDefault()
         fetch(`https://itunes.apple.com/search?media=music&entity=song&term=${songForm.title}`)
         .then(resp => {
             if (resp.ok) {
@@ -42,7 +40,6 @@ function CreatePost() {
                         console.log(songArt)
                         songForm.art = songArt
                         setSongReturn([...songReturn, songForm])
-                        //render the songReturnCard with the song
                     }
                     else {
                         setSongError(true)
