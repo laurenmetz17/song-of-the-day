@@ -5,4 +5,8 @@ class Post < ApplicationRecord
     belongs_to :user
     belongs_to :song
     belongs_to :playlist
+
+    def user_name
+        return self.user.name
+    end
 end
