@@ -13,11 +13,8 @@ class SongsController < ApplicationController
 
     def show_match
         song = Song.find_by(title: params[:title])
-        byebug;
         if song
-            byebug;
             if song.artist == params[:artist]
-                byebug;
                 render json: song
             else
                 render json: {error: "Song does not exist in db"}, status: :unprocessable_entity

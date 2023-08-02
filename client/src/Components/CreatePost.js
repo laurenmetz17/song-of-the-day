@@ -8,13 +8,14 @@ function CreatePost() {
 
     const [songError, setSongError] = useState(false)
     const [songReturn, setSongReturn] = useState([])
+    const [selectedSong, setSelectedSong] = useState(null)
     const [songForm, setSongForm] = useState({
         title: "",
         artist: ""
     })
 
     const songReturnItems = songReturn.map(song => {
-        return <SongReturnCard key={song.title} song={song} setSongReturn={setSongReturn}/>
+        return <SongReturnCard key={song.title} song={song} setSongReturn={setSongReturn} setSelectedSong={setSelectedSong}/>
     })
 
 
@@ -44,7 +45,6 @@ function CreatePost() {
                     else {
                         setSongError(true)
                     }
-                    //could match song by track id
                 })
             }
             else {
@@ -54,8 +54,8 @@ function CreatePost() {
         setSongForm({title: "", artist: ""})
         e.target.children[1].children[1].value = ""
         e.target.children[2].children[1].value = ""
-
     }
+    console.log(selectedSong)
 
     return (
         <div className='container'>
@@ -73,6 +73,12 @@ function CreatePost() {
             </form>
             {songError ? <p style={{color: "red"}}>Invalid Song</p> : null}
             {songReturnItems}
+            {selectedSong? 
+                <div className='selected_song'>
+                    <h4>Selected Song:</h4>
+                    <p>{selectedSong.title} by {selectedSong.artist}</p>
+                </div>
+            : null}
         </div>
     )
 }

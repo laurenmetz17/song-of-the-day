@@ -1,5 +1,5 @@
 
-function SongReturnCard({song, setSongReturn}) {
+function SongReturnCard({song, setSongReturn, setSelectedSong}) {
 
     function selectSong(e) {
         e.preventDefault()
@@ -7,9 +7,12 @@ function SongReturnCard({song, setSongReturn}) {
         fetch(`songs/${song.title}/${song.artist}`)
         .then(resp => {
             if (resp.ok) {
-                //not  returning okay even if song in database
                 resp.json()
-                .then(data => { console.log(data)})
+                .then(data => { 
+                    setSongReturn([])
+                    setSelectedSong(data)
+                })
+                //have song from database
             }
             else {
                 console.log(resp)
@@ -25,8 +28,8 @@ function SongReturnCard({song, setSongReturn}) {
                         if (resp.ok) {
                             resp.json()
                             .then((newSong) => {
-                                console.log(newSong)
                                 setSongReturn([])
+                                setSelectedSong(newSong)
                             })
                         }
                         else {
@@ -36,12 +39,6 @@ function SongReturnCard({song, setSongReturn}) {
 
             }
         })
-        
-        //get all songs in the biggining useEffect then query by title artist match 
-
-        //search for individual song in the database 
-
-        //if not post to the backend
 
     }
 
