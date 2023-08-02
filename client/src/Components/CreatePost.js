@@ -13,6 +13,10 @@ function CreatePost() {
         title: "",
         artist: ""
     })
+    const [postForm, setPostForm] = useState({
+        song_id: "",
+        comment: ""
+    })
 
     const songReturnItems = songReturn.map(song => {
         return <SongReturnCard key={song.title} song={song} setSongReturn={setSongReturn} setSelectedSong={setSelectedSong}/>
@@ -52,15 +56,27 @@ function CreatePost() {
             }
         })
         setSongForm({title: "", artist: ""})
-        e.target.children[1].children[1].value = ""
         e.target.children[2].children[1].value = ""
+        e.target.children[3].children[1].value = ""
     }
-    console.log(selectedSong)
+
+    function updatePostForm(e) {
+        if (postForm.song_id = "") {
+            setPostForm({...postForm, "song_id" : selectedSong.id})
+        }
+        const target = e.target.name
+        setPostForm({...postForm, [target] : e.target.value})
+    }
+    
+    function submitPost(e) {
+
+    }
 
     return (
         <div className='container'>
             <form className="forms" onSubmit={searchSong} >
-                <h1 className="headers">Search Song</h1>
+                <h1 className='headers'>Select your Song of the Day</h1>
+                <h3 className="headers">Search Song</h3>
                 <div className="inputs">
                     <label>Title</label>
                     <input name="title" type="text" onChange={updateSongForm}/>
@@ -74,9 +90,18 @@ function CreatePost() {
             {songError ? <p style={{color: "red"}}>Invalid Song</p> : null}
             {songReturnItems}
             {selectedSong? 
-                <div className='selected_song'>
-                    <h4>Selected Song:</h4>
-                    <p>{selectedSong.title} by {selectedSong.artist}</p>
+                <div className='container'>
+                    <div className='selected_song'>
+                        <h4>Selected Song:</h4>
+                        <p>{selectedSong.title} by {selectedSong.artist}</p>
+                    </div>
+                    <form className='forms' onSubmit={submitPost}>
+                        <div className="inputs">
+                            <label>Comment :</label>
+                            <input name="comment" type="text" onChange={updatePostForm}/>
+                        </div>
+                        <input type="submit" value="Post Song"/>
+                    </form>
                 </div>
             : null}
         </div>
