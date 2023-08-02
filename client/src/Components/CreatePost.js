@@ -61,15 +61,13 @@ function CreatePost() {
     }
 
     function updatePostForm(e) {
-        if (postForm.song_id = "") {
-            setPostForm({...postForm, "song_id" : selectedSong.id})
-        }
         const target = e.target.name
-        setPostForm({...postForm, [target] : e.target.value})
+        setPostForm({...postForm, [target] : e.target.value, "song_id": selectedSong.id})
     }
     
     function submitPost(e) {
-
+        e.preventDefault()
+        //post to posts
     }
 
     return (
