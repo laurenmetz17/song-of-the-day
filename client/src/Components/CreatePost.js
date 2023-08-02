@@ -15,6 +15,7 @@ function CreatePost() {
     })
     const [postForm, setPostForm] = useState({
         song_id: "",
+        playlist_id: "",
         comment: ""
     })
 
@@ -41,8 +42,6 @@ function CreatePost() {
                     const songData = songsMatch[0]
                     if (songData) {
                         const songArt = songData.artworkUrl100
-                        console.log(songData)
-                        console.log(songArt)
                         songForm.art = songArt
                         setSongReturn([...songReturn, songForm])
                     }
@@ -67,8 +66,38 @@ function CreatePost() {
     
     function submitPost(e) {
         e.preventDefault()
-        //post to posts
+        const date = new Date()
+        console.log(date.toDateString().substring(4, 15))
+        console.log(date.toDateString().substring(4,8))
+        console.log(date.getFullYear())
+        console.log(`${date.toDateString().substring(4,7)}, ${date.getFullYear()}`)
+        //if playlist for month does not yet exist create playlist 
+        //else get playlist id in updatepostform
+        fetch('posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postForm),
+            })
+            .then(resp => {
+                if (resp.ok) {
+                    resp.json()
+                    .then((newPost) => {
+                        setSelectedSong(null)
+                        console.log(newPost)
+                        //reset comment field and post form 
+
+                        //need to have playlist id first somehow
+                    })
+                }
+                else {
+                    console.log(resp)
+                }
+            });
     }
+
+    //if song of the day already selected show your song of the day
 
     return (
         <div className='container'>

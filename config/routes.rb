@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :users, except: [:show] do
-    resources :posts
-    resources :playlists
-  end
+  resources :users, except: [:show] 
+  resources :playlists
+  resources :posts
   resources :songs, except: [:index]
 
   post '/login', to: "sessions#create"
