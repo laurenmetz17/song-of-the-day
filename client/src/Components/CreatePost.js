@@ -1,4 +1,4 @@
-import {React, useContext, useState} from 'react'
+import {React, useContext, useEffect, useState} from 'react'
 import UserContext from './UserContext';
 import SongReturnCard from './SongReturnCard';
 
@@ -6,9 +6,14 @@ function CreatePost() {
 
     const user = useContext(UserContext); 
 
+    useEffect(() => {
+        findPlaylist()
+    },[])
+
     const [songError, setSongError] = useState(false)
     const [songReturn, setSongReturn] = useState([])
     const [selectedSong, setSelectedSong] = useState(null)
+    const [currentPlaylist, setCurrentPlaylist] = useState(null)
     const [songForm, setSongForm] = useState({
         title: "",
         artist: ""
@@ -62,20 +67,20 @@ function CreatePost() {
 
     function updatePostForm(e) {
         const target = e.target.name
-        setPostForm({...postForm, [target] : e.target.value, "song_id": selectedSong.id})
+        setPostForm({...postForm, [target] : e.target.value, "song_id": selectedSong.id, "playlist_id": currentPlaylist.id})
     }
 
     function findPlaylist() {
         const date = new Date()
         const playlist = `${date.toDateString().substring(4,7)}, ${date.getFullYear()}`
-        console.log(playlist)
         fetch(`playlists/${playlist}`)
         .then(resp => {
             if (resp.ok) {
                 resp.json()
                 .then(currentPlaylist => { 
                     console.log(currentPlaylist)
-                    setPostForm({...postForm, "playlist_id": currentPlaylist.id})
+                    setCurrentPlaylist(currentPlaylist)
+                    //setPostForm({...postForm, "playlist_id": currentPlaylist.id})
 
                 })
             }
@@ -92,7 +97,8 @@ function CreatePost() {
                             resp.json()
                             .then((newPlaylist) => {
                                 console.log(newPlaylist)
-                                setPostForm({...postForm, "playlist_id": newPlaylist.id})
+                                setCurrentPlaylist(newPlaylist)
+                                //setPostForm({...postForm, "playlist_id": newPlaylist.id})
                                 //add to users playlists
                             })
                         }
@@ -102,13 +108,11 @@ function CreatePost() {
                     });
             }
         })
-        //check if playlist exits if not create it then post
         //else get playlist id in updatepostform
     }
     
     function submitPost(e) {
         e.preventDefault()
-        findPlaylist()
         console.log(postForm)
         fetch('posts', {
             method: 'POST',
@@ -133,6 +137,7 @@ function CreatePost() {
                     setPostForm({song_id: null, playlist_id: null, comment: ""})
                 }
                 setPostForm({song_id: null, playlist_id: null, comment: ""})
+                e.target.children[0].children[1].value = ""
             });
     }
 
