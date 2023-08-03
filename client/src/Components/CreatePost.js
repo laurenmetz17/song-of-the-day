@@ -127,6 +127,7 @@ function CreatePost() {
                     .then((newPost) => {
                         //reset selected song and hide comment date form
                         setSelectedSong(null)
+                        //update user post object
                         console.log(newPost)
                     })
                 }
