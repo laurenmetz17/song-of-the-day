@@ -6,7 +6,6 @@ function CreatePost() {
 
     const user = useContext(UserContext); 
     const date = new Date() //get current date
-    console.log(date.toISOString().split('T')[0])
 
     useEffect(() => {
         findPlaylist() //get current playlist for the month or create one if neede
@@ -64,8 +63,8 @@ function CreatePost() {
         })
         //reset song form
         setSongForm({title: "", artist: ""})
+        e.target.children[2].children[1].value = ""
         e.target.children[3].children[1].value = ""
-        e.target.children[4].children[1].value = ""
     }
 
     function updatePostForm(e) {
@@ -133,8 +132,10 @@ function CreatePost() {
                     console.log(resp)
                     setPostForm({song_id: null, playlist_id: null, comment: ""})
                 }
-                setPostForm({song_id: null, playlist_id: null, comment: ""})
-                e.target.children[0].children[1].value = ""
+
+                //reset post form and inputs
+                setPostForm({ date: null,song_id: null, playlist_id: null, comment: ""})
+                e.target.children[0].children[1].value=""
             });
             //navigate to song of the day page
     }
@@ -146,10 +147,6 @@ function CreatePost() {
         <div className='container'>
             <form className="forms" onSubmit={searchSong} >
                 <h1 className='headers'>Select your Song of the Day</h1>
-                <div className="inputs">
-                    <label>Date :</label>
-                    <input name="name" type="date" max={date.toISOString().split('T')[0]} onChange={updateSongForm}/>
-                </div>
                 <h3 className="headers">Search Song</h3>
                 <div className="inputs">
                     <label>Title</label>
@@ -168,6 +165,10 @@ function CreatePost() {
                     <div className='selected_song'>
                         <h4>Selected Song:</h4>
                         <p>{selectedSong.title} by {selectedSong.artist}</p>
+                    </div>
+                    <div className="inputs">
+                        <label>Date :</label>
+                        <input name="date" type="date" max={date.toISOString().split('T')[0]} onChange={updatePostForm}/>
                     </div>
                     <form className='forms' onSubmit={submitPost}>
                         <div className="inputs">
