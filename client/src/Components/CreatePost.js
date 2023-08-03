@@ -5,6 +5,8 @@ import SongReturnCard from './SongReturnCard';
 function CreatePost() {
 
     const user = useContext(UserContext); 
+    const date = new Date() //get current date
+    console.log(date.toISOString().split('T')[0])
 
     useEffect(() => {
         findPlaylist() //get current playlist for the month or create one if neede
@@ -72,7 +74,6 @@ function CreatePost() {
     }
 
     function findPlaylist() {
-        const date = new Date() //get current date
         const playlist = `${date.toDateString().substring(4,7)}, ${date.getFullYear()}` //extract month, year for title 
         fetch(`playlists/${playlist}`) //find if playlist is in databae already 
         .then(resp => {
@@ -147,7 +148,7 @@ function CreatePost() {
                 <h1 className='headers'>Select your Song of the Day</h1>
                 <div className="inputs">
                     <label>Date :</label>
-                    <input name="name" type="date" max="today" onChange={updateSongForm}/>
+                    <input name="name" type="date" max={date.toISOString().split('T')[0]} onChange={updateSongForm}/>
                 </div>
                 <h3 className="headers">Search Song</h3>
                 <div className="inputs">
