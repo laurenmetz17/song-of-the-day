@@ -113,6 +113,7 @@ function CreatePost() {
     function submitPost(e) {
         e.preventDefault()
         console.log(postForm)
+        //post to posts 
         fetch('posts', {
             method: 'POST',
             headers: {
@@ -124,15 +125,14 @@ function CreatePost() {
                 if (resp.ok) {
                     resp.json()
                     .then((newPost) => {
+                        //reset selected song and hide comment date form
                         setSelectedSong(null)
                         console.log(newPost)
                     })
                 }
                 else {
                     console.log(resp)
-                    setPostForm({song_id: null, playlist_id: null, comment: ""})
                 }
-
                 //reset post form and inputs
                 setPostForm({ date: null,song_id: null, playlist_id: null, comment: ""})
                 e.target.children[0].children[1].value=""
@@ -141,7 +141,7 @@ function CreatePost() {
     }
 
     //if song of the day already selected show your song of the day and post for prior dates
-    //add date to form so that you can add songs for previous times 
+    //validate date not more than present on backend
 
     return (
         <div className='container'>

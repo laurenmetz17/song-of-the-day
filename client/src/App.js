@@ -9,6 +9,7 @@ import Logout from './Components/Logout';
 import TodayHome from './Components/TodayHome';
 import CreatePost from './Components/CreatePost';
 
+
 function App() {
 
   const [user, setUser] = useState(null)
