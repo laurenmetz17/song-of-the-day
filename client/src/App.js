@@ -6,7 +6,7 @@ import NavBar from './Components/NavBar';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Logout from './Components/Logout';
-import SongOfTheDay from './Components/SongOfTheDay';
+import TodayHome from './Components/TodayHome';
 import CreatePost from './Components/CreatePost';
 
 function App() {
@@ -31,9 +31,6 @@ function App() {
     })
   },[])
 
-  //when creating a post the user will first search a song in top of form
-  //then it will return that song and create it in the system if it doesnt already exist
-  //then attatch song id to the post 
   return (
     <div className="App">
       <UserContext.Provider value={user}>
@@ -41,7 +38,7 @@ function App() {
         <Login setUser={setUser}/>
         <Signup/>
         <Logout setUser={setUser}/>
-        <SongOfTheDay/>
+        <TodayHome/>
         <CreatePost/>
       </UserContext.Provider>
     </div>

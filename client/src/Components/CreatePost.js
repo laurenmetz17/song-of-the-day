@@ -7,7 +7,7 @@ function CreatePost() {
     const user = useContext(UserContext); 
 
     useEffect(() => {
-        findPlaylist()
+        findPlaylist() //get current playlist for the month or create one if neede
     },[])
 
     const [songError, setSongError] = useState(false)
@@ -19,6 +19,7 @@ function CreatePost() {
         artist: ""
     })
     const [postForm, setPostForm] = useState({
+        date: null,
         song_id: "",
         playlist_id: "",
         comment: ""
@@ -61,8 +62,8 @@ function CreatePost() {
         })
         //reset song form
         setSongForm({title: "", artist: ""})
-        e.target.children[2].children[1].value = ""
         e.target.children[3].children[1].value = ""
+        e.target.children[4].children[1].value = ""
     }
 
     function updatePostForm(e) {
@@ -71,20 +72,20 @@ function CreatePost() {
     }
 
     function findPlaylist() {
-        const date = new Date()
-        const playlist = `${date.toDateString().substring(4,7)}, ${date.getFullYear()}`
-        fetch(`playlists/${playlist}`)
+        const date = new Date() //get current date
+        const playlist = `${date.toDateString().substring(4,7)}, ${date.getFullYear()}` //extract month, year for title 
+        fetch(`playlists/${playlist}`) //find if playlist is in databae already 
         .then(resp => {
             if (resp.ok) {
                 resp.json()
                 .then(currentPlaylist => { 
                     console.log(currentPlaylist)
-                    setCurrentPlaylist(currentPlaylist)
-                    //setPostForm({...postForm, "playlist_id": currentPlaylist.id})
+                    setCurrentPlaylist(currentPlaylist) //get current playlist if yes
 
                 })
             }
             else {
+                //make current playlist if no
                 fetch('playlists', {
                     method: 'POST',
                     headers: {
@@ -98,7 +99,6 @@ function CreatePost() {
                             .then((newPlaylist) => {
                                 console.log(newPlaylist)
                                 setCurrentPlaylist(newPlaylist)
-                                //setPostForm({...postForm, "playlist_id": newPlaylist.id})
                                 //add to users playlists
                             })
                         }
@@ -108,7 +108,6 @@ function CreatePost() {
                     });
             }
         })
-        //else get playlist id in updatepostform
     }
     
     function submitPost(e) {
@@ -127,9 +126,6 @@ function CreatePost() {
                     .then((newPost) => {
                         setSelectedSong(null)
                         console.log(newPost)
-                        //reset comment field and post form 
-
-                        //need to have playlist id first somehow
                     })
                 }
                 else {
@@ -139,14 +135,20 @@ function CreatePost() {
                 setPostForm({song_id: null, playlist_id: null, comment: ""})
                 e.target.children[0].children[1].value = ""
             });
+            //navigate to song of the day page
     }
 
-    //if song of the day already selected show your song of the day
+    //if song of the day already selected show your song of the day and post for prior dates
+    //add date to form so that you can add songs for previous times 
 
     return (
         <div className='container'>
             <form className="forms" onSubmit={searchSong} >
                 <h1 className='headers'>Select your Song of the Day</h1>
+                <div className="inputs">
+                    <label>Date :</label>
+                    <input name="name" type="date" max="today" onChange={updateSongForm}/>
+                </div>
                 <h3 className="headers">Search Song</h3>
                 <div className="inputs">
                     <label>Title</label>

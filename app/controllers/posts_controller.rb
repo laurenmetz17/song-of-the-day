@@ -30,7 +30,7 @@ class PostsController < ApplicationController
     private
 
     def post_params
-        params.permit(:song_id, :playlist_id, :comment)
+        params.permit(:song_id, :playlist_id, :comment, :date)
     end
 
 end

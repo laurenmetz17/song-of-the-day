@@ -1,7 +1,7 @@
 import {React, useState, useContext} from 'react'
 import UserContext from './UserContext';
 
-function SongOfTheDay() {
+function TodayHome() {
 
     const user = useContext(UserContext);  
     //console.log(user.songs)
@@ -10,4 +10,4 @@ function SongOfTheDay() {
     )
 }
 
-export default SongOfTheDay;
+export default TodayHome;
