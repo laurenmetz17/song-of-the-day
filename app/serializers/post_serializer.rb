@@ -1,3 +1,3 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id :song_id, :listener_id, :review, :comment, :listener_name, :playlist_id
+  attributes :id, :user_id, :user_id, :comment, :user_name, :playlist_id
 end

@@ -2,6 +2,7 @@ class PlaylistsController < ApplicationController
 
     def create
         playlist = current_user.playlists.create(playlist_params)
+        byebug;
         if playlist.valid?
             render json: playlist,status: :created
         else
@@ -21,6 +22,12 @@ class PlaylistsController < ApplicationController
         else
             render json: {error:"Playlist does not exist"}, status: :not_found
         end
+    end
+    
+    private
+
+    def playlist_params
+        params.permit(:title)
     end
 
 end

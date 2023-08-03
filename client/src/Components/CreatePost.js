@@ -38,12 +38,12 @@ function CreatePost() {
             if (resp.ok) {
                 resp.json()
                 .then(data => {
-                    const songsMatch = data.results.filter(songItem => songItem.artistName == songForm.artist);
-                    const songData = songsMatch[0]
+                    const songsMatch = data.results.filter(songItem => songItem.artistName == songForm.artist); //list of 50 songs in api find the one matching artist
+                    const songData = songsMatch[0] //get first track in list if multiple song artist matches
                     if (songData) {
-                        const songArt = songData.artworkUrl100
+                        const songArt = songData.artworkUrl100 //grab the album art and add to the song form
                         songForm.art = songArt
-                        setSongReturn([...songReturn, songForm])
+                        setSongReturn([...songReturn, songForm]) //reset the song return 
                     }
                     else {
                         setSongError(true)
@@ -54,6 +54,7 @@ function CreatePost() {
                 setSongError(true)
             }
         })
+        //reset song form
         setSongForm({title: "", artist: ""})
         e.target.children[2].children[1].value = ""
         e.target.children[3].children[1].value = ""
@@ -72,12 +73,33 @@ function CreatePost() {
         .then(resp => {
             if (resp.ok) {
                 resp.json()
-                .then(data => { 
-                    console.log(data)
+                .then(currentPlaylist => { 
+                    console.log(currentPlaylist)
+                    setPostForm({...postForm, "playlist_id": currentPlaylist.id})
+
                 })
             }
             else {
-                //post to playlist 
+                fetch('playlists', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({title: playlist}),
+                    })
+                    .then(resp => {
+                        if (resp.ok) {
+                            resp.json()
+                            .then((newPlaylist) => {
+                                console.log(newPlaylist)
+                                setPostForm({...postForm, "playlist_id": newPlaylist.id})
+                                //add to users playlists
+                            })
+                        }
+                        else {
+                            console.log(resp)
+                        }
+                    });
             }
         })
         //check if playlist exits if not create it then post
@@ -87,6 +109,7 @@ function CreatePost() {
     function submitPost(e) {
         e.preventDefault()
         findPlaylist()
+        console.log(postForm)
         fetch('posts', {
             method: 'POST',
             headers: {
@@ -107,7 +130,9 @@ function CreatePost() {
                 }
                 else {
                     console.log(resp)
+                    setPostForm({song_id: null, playlist_id: null, comment: ""})
                 }
+                setPostForm({song_id: null, playlist_id: null, comment: ""})
             });
     }
 
