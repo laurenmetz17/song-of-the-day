@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :users, except: [:show] 
-  resources :playlists
+  resources :playlists, except: [:show]
   resources :posts
   resources :songs, except: [:index]
 
@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#destroy"
   get '/me', to: "users#show"
   get '/songs/:title/:artist', to: "songs#show_match"
+  get '/playlist/:title', to: "playlist#show"
   
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

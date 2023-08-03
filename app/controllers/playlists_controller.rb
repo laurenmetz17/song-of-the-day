@@ -15,7 +15,7 @@ class PlaylistsController < ApplicationController
     end
 
     def show
-        playlist = current_user.playlists.find_by(id: params[:id])
+        playlist = current_user.playlists.find_by(title: params[:title])
         if playlist
             render json: playlist
         else

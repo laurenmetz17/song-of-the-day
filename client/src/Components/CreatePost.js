@@ -63,16 +63,30 @@ function CreatePost() {
         const target = e.target.name
         setPostForm({...postForm, [target] : e.target.value, "song_id": selectedSong.id})
     }
+
+    function findPlaylist() {
+        const date = new Date()
+        const playlist = `${date.toDateString().substring(4,7)}, ${date.getFullYear()}`
+        console.log(playlist)
+        fetch(`playlists/${playlist}`)
+        .then(resp => {
+            if (resp.ok) {
+                resp.json()
+                .then(data => { 
+                    console.log(data)
+                })
+            }
+            else {
+                //post to playlist 
+            }
+        })
+        //check if playlist exits if not create it then post
+        //else get playlist id in updatepostform
+    }
     
     function submitPost(e) {
         e.preventDefault()
-        const date = new Date()
-        console.log(date.toDateString().substring(4, 15))
-        console.log(date.toDateString().substring(4,8))
-        console.log(date.getFullYear())
-        console.log(`${date.toDateString().substring(4,7)}, ${date.getFullYear()}`)
-        //if playlist for month does not yet exist create playlist 
-        //else get playlist id in updatepostform
+        findPlaylist()
         fetch('posts', {
             method: 'POST',
             headers: {
