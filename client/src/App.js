@@ -1,6 +1,8 @@
 
 import './App.css';
+import "./styles.css";
 import {React, useEffect, useState,useContext, createContext} from 'react';
+import {Routes, Route } from "react-router-dom";
 import UserContext from './Components/UserContext';
 import NavBar from './Components/NavBar';
 import Login from './Components/Login';
@@ -34,6 +36,22 @@ function App() {
   },[])
 
   return (
+    <div className='App'>
+      <UserContext.Provider value={user}>
+        <NavBar/>
+        <div className='container'>
+          <Routes>
+              <Route path="/" element={<TodayHome/>}/> {/*replace with about*/}
+              <Route path="/todayHome" element={<TodayHome/>}/>
+              <Route path="/postToday" element={<CreatePost/>}/>
+              <Route path="/playlistsPage" element={<Playlists/>}/>
+              <Route path="/login" element={<Login setUser={setUser}/>}/> {/* add in link to signup*/}
+              <Route path="/logout" element={<Logout setUser={setUser}/>}/>
+          </Routes>
+        </div>
+      </UserContext.Provider> 
+    </div>
+    /*
     <div className="App">
       <UserContext.Provider value={user}>
         <NavBar/>
@@ -45,6 +63,7 @@ function App() {
         <Logout setUser={setUser}/>
       </UserContext.Provider>
     </div>
+  */
   );
 }
 

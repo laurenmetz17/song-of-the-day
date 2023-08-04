@@ -7,11 +7,7 @@ function CreatePost() {
     //potential issue when they select song after already doing it once
 
     const user = useContext(UserContext); 
-    const date = new Date() //get current date
-
-    useEffect(() => {
-        //findPlaylist() //get current playlist for the month or create one if need
-    },[])
+    const date = new Date() //get current date for date limit
 
     const [songError, setSongError] = useState(false)
     const [songReturn, setSongReturn] = useState([])
@@ -70,11 +66,11 @@ function CreatePost() {
     }
 
     function updateDate(e) {
-        const dateInput = new Date(e.target.value.replaceAll('-','/')).toDateString()
-        const playlistInput = `${dateInput.substring(4,7)}, ${dateInput.substring(11,15)}`
-        findPlaylist(playlistInput)
+        const dateInput = new Date(e.target.value.replaceAll('-','/')).toDateString() //get date from input replace dashes with slashes
+        const playlistInput = `${dateInput.substring(4,7)}, ${dateInput.substring(11,15)}` //turn into mon, year syntax
+        findPlaylist(playlistInput) //find this playlist in database or create it 
         const target = e.target.name
-        setPostForm({...postForm, [target] : e.target.value, "song_id": selectedSong.id})
+        setPostForm({...postForm, [target] : e.target.value, "song_id": selectedSong.id}) //update date in form 
     }
 
     function updatePostForm(e) {
@@ -83,8 +79,7 @@ function CreatePost() {
     }
 
     function findPlaylist(playlistInput) {
-        console.log(playlistInput)
-        //const playlist = `${dateInput.toDateString().substring(4,7)}, ${dateInput.substring(11,15)}` //extract month, year for title 
+        //this creates a playlist whenever a new date is selected consider changing
         fetch(`playlists/${playlistInput}`) //find if playlist is in database already 
         .then(resp => {
             if (resp.ok) {
