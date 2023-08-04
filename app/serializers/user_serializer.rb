@@ -3,5 +3,5 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :posts
   has_many :songs
-  has_many :playlists
+  has_many :playlists, each_serializer: PlaylistSerializer
 end

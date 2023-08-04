@@ -8,6 +8,7 @@ import Signup from './Components/Signup';
 import Logout from './Components/Logout';
 import TodayHome from './Components/TodayHome';
 import CreatePost from './Components/CreatePost';
+import Playlists from './Components/Playlists';
 
 
 function App() {
@@ -36,11 +37,12 @@ function App() {
     <div className="App">
       <UserContext.Provider value={user}>
         <NavBar/>
+        <TodayHome/>
+        <CreatePost/>
+        <Playlists/>
         <Login setUser={setUser}/>
         <Signup/>
         <Logout setUser={setUser}/>
-        <TodayHome/>
-        <CreatePost/>
       </UserContext.Provider>
     </div>
   );

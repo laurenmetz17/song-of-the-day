@@ -11,7 +11,8 @@ class PlaylistsController < ApplicationController
 
     def index
         playlists = current_user.playlists
-        render json: playlists
+        byebug;
+        render json: playlists, each_serializer: PlaylistSerializer
     end
 
     def show

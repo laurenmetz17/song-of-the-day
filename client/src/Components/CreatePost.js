@@ -4,11 +4,13 @@ import SongReturnCard from './SongReturnCard';
 
 function CreatePost() {
 
+    //potential issue when they select song after already doing it once
+
     const user = useContext(UserContext); 
     const date = new Date() //get current date
 
     useEffect(() => {
-        findPlaylist() //get current playlist for the month or create one if neede
+        //findPlaylist() //get current playlist for the month or create one if need
     },[])
 
     const [songError, setSongError] = useState(false)
@@ -67,20 +69,30 @@ function CreatePost() {
         e.target.children[3].children[1].value = ""
     }
 
+    function updateDate(e) {
+        const dateInput = new Date(e.target.value.replaceAll('-','/')).toDateString()
+        const playlistInput = `${dateInput.substring(4,7)}, ${dateInput.substring(11,15)}`
+        findPlaylist(playlistInput)
+        const target = e.target.name
+        setPostForm({...postForm, [target] : e.target.value, "song_id": selectedSong.id})
+    }
+
     function updatePostForm(e) {
         const target = e.target.name
         setPostForm({...postForm, [target] : e.target.value, "song_id": selectedSong.id, "playlist_id": currentPlaylist.id})
     }
 
-    function findPlaylist() {
-        const playlist = `${date.toDateString().substring(4,7)}, ${date.getFullYear()}` //extract month, year for title 
-        fetch(`playlists/${playlist}`) //find if playlist is in databae already 
+    function findPlaylist(playlistInput) {
+        console.log(playlistInput)
+        //const playlist = `${dateInput.toDateString().substring(4,7)}, ${dateInput.substring(11,15)}` //extract month, year for title 
+        fetch(`playlists/${playlistInput}`) //find if playlist is in database already 
         .then(resp => {
             if (resp.ok) {
                 resp.json()
                 .then(currentPlaylist => { 
                     console.log(currentPlaylist)
                     setCurrentPlaylist(currentPlaylist) //get current playlist if yes
+                    
 
                 })
             }
@@ -91,7 +103,7 @@ function CreatePost() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({title: playlist}),
+                    body: JSON.stringify({title: playlistInput}),
                     })
                     .then(resp => {
                         if (resp.ok) {
@@ -99,6 +111,7 @@ function CreatePost() {
                             .then((newPlaylist) => {
                                 console.log(newPlaylist)
                                 setCurrentPlaylist(newPlaylist)
+                                console.log(user.playlists)
                                 //add to users playlists
                             })
                         }
@@ -169,7 +182,7 @@ function CreatePost() {
                     </div>
                     <div className="inputs">
                         <label>Date :</label>
-                        <input name="date" type="date" max={date.toISOString().split('T')[0]} onChange={updatePostForm}/>
+                        <input name="date" type="date" max={date.toISOString().split('T')[0]} onChange={updateDate}/>
                     </div>
                     <form className='forms' onSubmit={submitPost}>
                         <div className="inputs">

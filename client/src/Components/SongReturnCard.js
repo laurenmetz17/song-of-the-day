@@ -15,7 +15,6 @@ function SongReturnCard({song, setSongReturn, setSelectedSong}) {
                 //have song from database
             }
             else {
-                console.log(resp)
                 console.log(song)
                 fetch('songs', {
                     method: 'POST',

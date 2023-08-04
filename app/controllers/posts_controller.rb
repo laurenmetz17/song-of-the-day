@@ -2,7 +2,7 @@ class PostsController < ApplicationController
 
     def create
         post = current_user.posts.create(post_params)
-        #byebug;
+        byebug;
         if post.valid?
             ##adds song to playlist here?
             render json: post, status: :created
