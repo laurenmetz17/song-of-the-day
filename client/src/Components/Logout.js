@@ -1,7 +1,9 @@
-//import {useNavigate} from 'react-router-dom';
-//issue with react-router-dom ask about 2 package.jsons
+import {useContext} from 'react'
+//import {useNavigate} from 'react-router-dom'
+//issue with useNavigate here but works in other components
 
 function Logout({setUser}) {
+
     //const navigate = useNavigate()
 
     function handleLogout(e) {
@@ -19,8 +21,8 @@ function Logout({setUser}) {
         })
         .then(() => {
             setUser(null)
-            //navigate('/login')
         })
+        //navigate('/todayHome')
     }
 
     return (
