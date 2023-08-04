@@ -1,5 +1,5 @@
-//import useNavigate from 'react-router-dom';
-//issue with react-router-dom
+//import {useNavigate} from 'react-router-dom';
+//issue with react-router-dom ask about 2 package.jsons
 
 function Logout({setUser}) {
     //const navigate = useNavigate()
