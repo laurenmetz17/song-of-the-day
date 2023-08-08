@@ -2,6 +2,7 @@ class PlaylistsController < ApplicationController
 
     def create
         playlist = current_user.playlists.create(playlist_params)
+        byebug;
         if playlist.valid?
             render json: playlist,status: :created
         else

@@ -1,8 +1,10 @@
 import {React, useState, useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login({setUser}) {
 
     const [logError,setLogError] = useState(false)
+    const navigate = useNavigate()
 
     const [loginForm, setLoginForm] = useState({
         username: "",
@@ -26,13 +28,13 @@ function Login({setUser}) {
             body: JSON.stringify(loginForm),
         })
         .then(resp => {
-            //if response okay set the user and navigate to the song of the day form
+            //if response okay set the user and navigate to home page
             if (resp.ok) {
                 resp.json()
                 .then((userInput) => {
                     console.log(userInput)
                     setUser(userInput)
-                    //navigate('/songOfThePage')
+                    navigate('/todayHome')
                 }) 
             }
             //else return unauthorized response and show error
@@ -61,7 +63,7 @@ function Login({setUser}) {
                 </div>
                 <div className='inputs'>
                     <label>Password</label>
-                    <input name="password" type="text" onChange={updateLogin}/>
+                    <input name="password" type="password" onChange={updateLogin}/>
                 </div>
                 <input name="submit" type="submit" value="Submit"/>
             </form>

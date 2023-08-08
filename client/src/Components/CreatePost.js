@@ -1,12 +1,15 @@
 import {React, useContext, useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import UserContext from './UserContext';
 import SongReturnCard from './SongReturnCard';
+import SongOfTheDayCard from './SongOfTheDayCard';
 
 function CreatePost() {
 
     //potential issue when they select song after already doing it once
 
     const user = useContext(UserContext); 
+    const navigate = useNavigate()
     const date = new Date() //get current date for date limit
 
     const [songError, setSongError] = useState(false)
@@ -147,6 +150,94 @@ function CreatePost() {
                 e.target.children[0].children[1].value=""
             });
             //navigate to song of the day page
+            navigate('/todayHome')
+    }
+
+    function postedToday() {
+        let todayPost = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
+        if (todayPost.length > 0) {
+            return (
+                <div className='container'>
+                    <SongOfTheDayCard/>
+                    <h1>Post for prior dates</h1>
+                    <form className="forms" onSubmit={searchSong} >
+                        <h1 className='headers'>Select your Song</h1>
+                        <h3 className="headers">Search Song</h3>
+                        <div className="inputs">
+                            <label>Title</label>
+                            <input name="title" type="text" onChange={updateSongForm}/>
+                        </div>
+                        <div className='inputs'>
+                            <label>Artist</label>
+                            <input name="artist" type="text" onChange={updateSongForm}/>
+                        </div>
+                        <input type="submit" value="Search Song"/>
+                    </form>
+                    {songError ? <p style={{color: "red"}}>Invalid Song</p> : null}
+                    {songReturnItems}
+                    {selectedSong? 
+                        <div className='container'>
+                            <div className='selected_song'>
+                                <h4>Selected Song:</h4>
+                                <p>{selectedSong.title} by {selectedSong.artist}</p>
+                            </div>
+                            <div className="inputs">
+                                <label>Date :</label>
+                                <input name="date" type="date" max={date.toISOString().split('T')[0]} onChange={updateDate}/>
+                            </div>
+                            <form className='forms' onSubmit={submitPost}>
+                                <div className="inputs">
+                                    <label>Comment :</label>
+                                    <input name="comment" type="text" onChange={updatePostForm}/>
+                                </div>
+                                <input type="submit" value="Post Song"/>
+                            </form>
+                        </div>
+                    : null}
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className='container'>
+                    <h1>You haven't posted Today</h1>
+                    <form className="forms" onSubmit={searchSong} >
+                        <h1 className='headers'>Select your Song</h1>
+                        <h3 className="headers">Search Song</h3>
+                        <div className="inputs">
+                            <label>Title</label>
+                            <input name="title" type="text" onChange={updateSongForm}/>
+                        </div>
+                        <div className='inputs'>
+                            <label>Artist</label>
+                            <input name="artist" type="text" onChange={updateSongForm}/>
+                        </div>
+                        <input type="submit" value="Search Song"/>
+                    </form>
+                    {songError ? <p style={{color: "red"}}>Invalid Song</p> : null}
+                    {songReturnItems}
+                    {selectedSong? 
+                        <div className='container'>
+                            <div className='selected_song'>
+                                <h4>Selected Song:</h4>
+                                <p>{selectedSong.title} by {selectedSong.artist}</p>
+                            </div>
+                            <div className="inputs">
+                                <label>Date :</label>
+                                <input name="date" type="date" max={date.toISOString().split('T')[0]} onChange={updateDate}/>
+                            </div>
+                            <form className='forms' onSubmit={submitPost}>
+                                <div className="inputs">
+                                    <label>Comment :</label>
+                                    <input name="comment" type="text" onChange={updatePostForm}/>
+                                </div>
+                                <input type="submit" value="Post Song"/>
+                            </form>
+                        </div>
+                    : null}
+                </div>
+            )
+        }    
     }
 
     //if song of the day already selected show your song of the day and post for prior dates
@@ -154,40 +245,7 @@ function CreatePost() {
 
     return (
         <div className='container'>
-            <form className="forms" onSubmit={searchSong} >
-                <h1 className='headers'>Select your Song of the Day</h1>
-                <h3 className="headers">Search Song</h3>
-                <div className="inputs">
-                    <label>Title</label>
-                    <input name="title" type="text" onChange={updateSongForm}/>
-                </div>
-                <div className='inputs'>
-                    <label>Artist</label>
-                    <input name="artist" type="text" onChange={updateSongForm}/>
-                </div>
-                <input type="submit" value="Search Song"/>
-            </form>
-            {songError ? <p style={{color: "red"}}>Invalid Song</p> : null}
-            {songReturnItems}
-            {selectedSong? 
-                <div className='container'>
-                    <div className='selected_song'>
-                        <h4>Selected Song:</h4>
-                        <p>{selectedSong.title} by {selectedSong.artist}</p>
-                    </div>
-                    <div className="inputs">
-                        <label>Date :</label>
-                        <input name="date" type="date" max={date.toISOString().split('T')[0]} onChange={updateDate}/>
-                    </div>
-                    <form className='forms' onSubmit={submitPost}>
-                        <div className="inputs">
-                            <label>Comment :</label>
-                            <input name="comment" type="text" onChange={updatePostForm}/>
-                        </div>
-                        <input type="submit" value="Post Song"/>
-                    </form>
-                </div>
-            : null}
+            {user ? postedToday() : <h2>Log in to Post</h2>}
         </div>
     )
 }
