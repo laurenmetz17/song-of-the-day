@@ -7,24 +7,31 @@ function SongOfTheDayCard() {
     const user = useContext(UserContext)
     const navigate = useNavigate()
     const date = new Date()
-    let todayPost
-    if (user) {
-        console.log(user.posts)
-        console.log(date.toISOString().split('T')[0])
-        todayPost = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
-        console.log(todayPost)
 
-    }
     //if the user has as post today get that song
+    let todayPost
+    let todaySong
+    if (user) {
+        todayPost = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
+        todayPost = todayPost[0]
+        todaySong = user.songs.find(song => song.id === todayPost.song_id)
+    }
 
     function postMade() {
-        console.log('start')
         if (todayPost) {
             if (todayPost.length == 0) {
                 return <button onClick={() => {navigate('/postToday')}}>Choose Your Song Of The Day</button>
             }
             else {
-                return <p>{todayPost.comment}</p>
+                console.log(todaySong)
+                return (
+                    <div>
+                        <img src={todaySong.art} alt="album cover"></img>
+                        <p>{todaySong.title}</p>
+                        <p>{todaySong.artist}</p>
+                        <p>{todayPost.comment}</p>
+                    </div>
+                )
             }
         }
         else {
