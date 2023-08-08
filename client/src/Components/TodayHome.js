@@ -1,5 +1,6 @@
 import {React, useState, useEffect, useContext} from 'react'
 import SongOfTheDayCard from './SongOfTheDayCard';
+import PostCard from './PostCard';
 import UserContext from './UserContext';
 
 
@@ -28,17 +29,26 @@ function TodayHome() {
         })
     },[])
 
-    const songsOfTheDay = users.forEach(userItem => {
+    let songsOfTheDay
+    users.forEach(userItem => {
         let todayPosts = userItem.posts.filter(post => post.date == date.toISOString().split('T')[0])
         if (user) {
             todayPosts = todayPosts.filter(post => post.user_id != user.id)
         }
-        console.log(todayPosts)
+        if (todayPosts.length !== 0) {
+            songsOfTheDay = todayPosts.map(post => (
+                <PostCard key={post.id} post={post} users={users}/>
+            ))
+        }
     })
 
-    
     return (
-        <SongOfTheDayCard/>
+        <div className='container'>
+            <SongOfTheDayCard/>
+            <h1>Songs Of the Day</h1>
+            {songsOfTheDay}
+        </div>
+        
     )
 }
 
