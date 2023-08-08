@@ -4,7 +4,6 @@ class PostsController < ApplicationController
         post = current_user.posts.create(post_params)
         byebug;
         if post.valid?
-            ##adds song to playlist here?
             render json: post, status: :created
         else
             render json: {errors: post.errors.full_messages}, status: :unprocessable_entity

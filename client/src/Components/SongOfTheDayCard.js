@@ -8,7 +8,7 @@ function SongOfTheDayCard() {
     const navigate = useNavigate()
     const date = new Date()
 
-    //if the user has as post today get that song
+    //if the user has as post today get that post and song
     let todayPost
     let todaySong
     if (user) {
@@ -21,24 +21,20 @@ function SongOfTheDayCard() {
     }
 
     function postMade() {
-        if (todayPost) {
-            if (todayPost.length == 0) {
-                return <button onClick={() => {navigate('/postToday')}}>Choose Your Song Of The Day</button>
-            }
-            else {
-                console.log(todaySong)
-                return (
-                    <div>
-                        <img src={todaySong.art} alt="album cover"></img>
-                        <p>{todaySong.title}</p>
-                        <p>{todaySong.artist}</p>
-                        <p>{todayPost.comment}</p>
-                    </div>
-                )
-            }
+        //if there is a post today render the post, if not render a button to go the create post page
+        if (todayPost.length == 0) {
+            return <button onClick={() => {navigate('/postToday')}}>Choose Your Song Of The Day</button>
         }
         else {
-            return <button onClick={() => {navigate('/postToday')}}>Choose Your Song Of The Day</button>
+            console.log(todaySong)
+            return (
+                <div>
+                    <img src={todaySong.art} alt="album cover"></img>
+                    <p>{todaySong.title}</p>
+                    <p>{todaySong.artist}</p>
+                    <p>{todayPost.comment}</p>
+                </div>
+            )
         }
     }
 
