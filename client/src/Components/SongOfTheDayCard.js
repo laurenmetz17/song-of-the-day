@@ -13,8 +13,11 @@ function SongOfTheDayCard() {
     let todaySong
     if (user) {
         todayPost = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
-        todayPost = todayPost[0]
-        todaySong = user.songs.find(song => song.id === todayPost.song_id)
+        console.log(todayPost)
+        if (todayPost.length !== 0 ) {
+            todayPost = todayPost[0]
+            todaySong = user.songs.find(song => song.id === todayPost.song_id)
+        }
     }
 
     function postMade() {
