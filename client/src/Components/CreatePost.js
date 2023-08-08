@@ -88,10 +88,7 @@ function CreatePost() {
             if (resp.ok) {
                 resp.json()
                 .then(currentPlaylist => { 
-                    console.log(currentPlaylist)
                     setCurrentPlaylist(currentPlaylist) //get current playlist if yes
-                    
-
                 })
             }
             else {
@@ -107,9 +104,11 @@ function CreatePost() {
                         if (resp.ok) {
                             resp.json()
                             .then((newPlaylist) => {
-                                console.log(newPlaylist)
                                 setCurrentPlaylist(newPlaylist)
+                                const newPlaylists = [...user.playlists, newPlaylist]
+                                user.playlists = newPlaylists
                                 console.log(user.playlists)
+
                                 //add to users playlists
                             })
                         }
@@ -138,8 +137,12 @@ function CreatePost() {
                     .then((newPost) => {
                         //reset selected song and hide comment date form
                         setSelectedSong(null)
-                        //update user post object
-                        console.log(newPost)
+                        //update user post and song arrays
+                        const newPosts = [...user.posts, newPost]
+                        user.posts =  newPosts
+                        const newSongs = [...user.songs, selectedSong]
+                        user.songs = newSongs
+                        console.log(user)
                     })
                 }
                 else {

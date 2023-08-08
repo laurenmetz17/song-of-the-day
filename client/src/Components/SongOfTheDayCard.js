@@ -13,7 +13,6 @@ function SongOfTheDayCard() {
     let todaySong
     if (user) {
         todayPost = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
-        console.log(todayPost)
         if (todayPost.length !== 0 ) {
             todayPost = todayPost[0]
             todaySong = user.songs.find(song => song.id === todayPost.song_id)
@@ -26,9 +25,9 @@ function SongOfTheDayCard() {
             return <button onClick={() => {navigate('/postToday')}}>Choose Your Song Of The Day</button>
         }
         else {
-            console.log(todaySong)
             return (
                 <div>
+                    <h1>Today's Song</h1>
                     <img src={todaySong.art} alt="album cover"></img>
                     <p>{todaySong.title}</p>
                     <p>{todaySong.artist}</p>

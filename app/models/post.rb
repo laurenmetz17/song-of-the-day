@@ -2,7 +2,6 @@ class Post < ApplicationRecord
     validates :comment, {presence:true}
     validates :song_id, {presence:true}
     validates :date, {presence: true}
-    #validates :date, {uniqueness:true}
     validates_uniqueness_of :date, scope: :user_id
 
     belongs_to :user
