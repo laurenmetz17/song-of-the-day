@@ -2,11 +2,12 @@ import UserContext from "./UserContext";
 import {useContext, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-function SongOfTheDayCard() {
+function SongOfTheDayCard({setUser}) {
 
     const user = useContext(UserContext)
     const navigate = useNavigate()
     const [showEdit,setShowEdit] = useState(false)
+    const [editComment, setEditComment] = useState("")
     const date = new Date()
 
     //if the user has as post today get that post and song
@@ -19,16 +20,7 @@ function SongOfTheDayCard() {
             todaySong = user.songs.find(song => song.id === todayPost.song_id)
         }
     }
-
-    function showForm() {
-
-        return (
-            <form>
-                <input type="text" name="comment_edit"/>
-                <input type="submit"/>
-            </form>
-        )
-    }
+    
 
     function postMade() {
         //if there is a post today render the post, if not render a button to go the create post page
@@ -43,14 +35,53 @@ function SongOfTheDayCard() {
                     <p>{todaySong.title}</p>
                     <p>{todaySong.artist}</p>
                     <p>{todayPost.comment}</p>
-                    <button onClick={() => setShowEdit(true)}>Edit Comment</button>
-                    {showEdit ? showForm(): null}
+                    {showEdit ? showForm(): <button onClick={() => setShowEdit(true)}>Edit Comment</button>}
                 </div>
             )
         }
     }
 
-    //add in ability to edit the comment od the post
+    function showForm() {
+
+        return (
+            <form onSubmit={handleEdit}>
+                <input type="text" name="comment_edit" value={editComment} onChange={updateComment}/>
+                <input type="submit" value="Edit Comment" />
+            </form>
+        )
+    }
+
+    function updateComment(e) {
+        e.preventDefault()
+        setEditComment(e.target.value)
+    }
+
+    function handleEdit(e) {
+        e.preventDefault();
+        e.target.children[0].value = ''
+        fetch(`/posts/${todayPost.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({comment: editComment}), 
+        }).then(resp => {
+            if (resp.ok) {
+                resp.json()
+                .then((newPost) => {
+                    const newPosts = user.posts.map(post => post.id == newPost.id? newPost : post)
+                    user.posts = newPosts
+                    setUser(user)
+                    //state not actually updating
+                })
+
+            }
+            else {
+                console.log("bad edit")
+            }
+        })
+
+    }
 
 
     return (

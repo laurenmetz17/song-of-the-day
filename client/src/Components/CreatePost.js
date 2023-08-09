@@ -4,7 +4,7 @@ import UserContext from './UserContext';
 import SongReturnCard from './SongReturnCard';
 import SongOfTheDayCard from './SongOfTheDayCard';
 
-function CreatePost() {
+function CreatePost({setUser}) {
 
     //potential issue when they select song after already doing it once
 
@@ -89,6 +89,7 @@ function CreatePost() {
                 resp.json()
                 .then(currentPlaylist => { 
                     setCurrentPlaylist(currentPlaylist) //get current playlist if yes
+                    console.log(currentPlaylist)
                 })
             }
             else {
@@ -105,6 +106,7 @@ function CreatePost() {
                             resp.json()
                             .then((newPlaylist) => {
                                 setCurrentPlaylist(newPlaylist)
+                                console.log(newPlaylist)
                                 const newPlaylists = [...user.playlists, newPlaylist]
                                 user.playlists = newPlaylists
                                 console.log(user.playlists)
@@ -141,7 +143,9 @@ function CreatePost() {
                         const newPosts = [...user.posts, newPost]
                         user.posts =  newPosts
                         const newSongs = [...user.songs, selectedSong]
-                        user.songs = newSongs
+                        const newUser = {...user, songs: newSongs}
+                        setUser(newUser)
+                        
                         console.log(user)
                     })
                 }
@@ -161,7 +165,7 @@ function CreatePost() {
         if (todayPost.length > 0) {
             return (
                 <div className='container'>
-                    <SongOfTheDayCard/>
+                    <SongOfTheDayCard setUser={setUser}/>
                     <h1>Post for prior dates</h1>
                     <form className="forms" onSubmit={searchSong} >
                         <h1 className='headers'>Select your Song</h1>

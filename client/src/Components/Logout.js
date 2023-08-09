@@ -1,10 +1,10 @@
 import {React} from 'react'
-//import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 //issue with useNavigate here but works in other components
 
 function Logout({setUser}) {
 
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
 
     function handleLogout(e) {
         e.preventDefault();
@@ -21,8 +21,8 @@ function Logout({setUser}) {
         })
         .then(() => {
             setUser(null)
+            navigate('/todayHome')
         })
-        //navigate('/todayHome')
     }
 
     return (

@@ -12,7 +12,7 @@ function NavBar() {
             <Link to="/" className="site-name">Song Of The Day 🎵</Link>
             {user ? <p>{`Welcome ${user.name}!`}</p>: null}
             <ul>
-                <CustomLink to= "/todayHome">Today</CustomLink>
+                <CustomLink to= "/todayHome">Home</CustomLink>
                 <CustomLink to= "/postToday">Post Today</CustomLink>
                 <CustomLink to= "/playlistsPage">Playlists</CustomLink>
                 {user ? <CustomLink to= "/logout">Logout</CustomLink> :<CustomLink to= "/login">Login or Signup</CustomLink>}

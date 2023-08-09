@@ -4,7 +4,7 @@ import PostCard from './PostCard';
 import UserContext from './UserContext';
 
 
-function TodayHome() {
+function TodayHome({setUser}) {
 
     const date = new Date()
 
@@ -44,7 +44,7 @@ function TodayHome() {
 
     return (
         <div className='container'>
-            <SongOfTheDayCard/>
+            <SongOfTheDayCard setUser={setUser}/>
             <h1>Songs Of the Day</h1>
             {songsOfTheDay}
         </div>

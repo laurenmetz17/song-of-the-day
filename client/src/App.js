@@ -42,8 +42,8 @@ function App() {
         <div className='container'>
           <Routes>
               <Route path="/" element={<TodayHome/>}/> {/*replace with about*/}
-              <Route path="/todayHome" element={<TodayHome/>}/>
-              <Route path="/postToday" element={<CreatePost/>}/>
+              <Route path="/todayHome" element={<TodayHome setUser={setUser}/>}/>
+              <Route path="/postToday" element={<CreatePost setUser={setUser}/>}/>
               <Route path="/playlistsPage" element={<Playlists/>}/>
               <Route path="/login" element={<Login setUser={setUser}/>}/> {/* add in link to signup*/}
               <Route path="/logout" element={<Logout setUser={setUser}/>}/>
