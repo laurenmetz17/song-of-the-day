@@ -1,8 +1,11 @@
-//song card inpmoirt
+import SongCard from "./SongCard";
 
 function PlaylistCard({playlist}) {
+
+    console.log(playlist.songs)
+
     const songItems = playlist.songs.map(song => (
-        <p>{song.title}</p>
+        <SongCard key={song.id} song={song}/>
 
     ))
     

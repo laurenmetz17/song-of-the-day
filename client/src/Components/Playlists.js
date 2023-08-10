@@ -8,15 +8,15 @@ function Playlists() {
 
     let playlistItems
     if (user) {
-         playlistItems = user.playlists.map(playlist => (
+        playlistItems = user.playlists.map(playlist => (
             <PlaylistCard key={playlist.id} playlist={playlist}/>
-         ))
+        ))
         console.log(user.playlists)
     }
 
     return (
         <div className="container">
-            {user ? <p>playlist</p> : <p>Log in to see your playlists.</p>}
+            {user ? <h1>Your Playlists</h1> : <p>Log in to see your playlists.</p>}
             {playlistItems}
         </div>
     )
