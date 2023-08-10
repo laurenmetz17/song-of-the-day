@@ -5,14 +5,19 @@ import PlaylistCard from "./PlaylistCard";
 function Playlists() {
 
     const user = useContext(UserContext)
+
+    let playlistItems
     if (user) {
+         playlistItems = user.playlists.map(playlist => (
+            <PlaylistCard key={playlist.id} playlist={playlist}/>
+         ))
         console.log(user.playlists)
     }
 
     return (
         <div className="container">
-            {user ? <p>user playlists</p> : <p>Log in to see your playlists.</p>}
-            <PlaylistCard/>
+            {user ? <p>playlist</p> : <p>Log in to see your playlists.</p>}
+            {playlistItems}
         </div>
     )
 }
