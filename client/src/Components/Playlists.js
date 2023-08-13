@@ -1,41 +1,42 @@
 import UserContext from "./UserContext";
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import PlaylistCard from "./PlaylistCard";
 
 function Playlists() {
 
-    //add playlist search
-
     const user = useContext(UserContext)
+    const [playlists, setPlaylists] = useState(user.playlists)
+
+    console.log(playlists)
 
     function dropDown() {
 
         const options = user.playlists.map(playlist => (
-            <option playlist={playlist} key={playlist.id}>{playlist.title}</option>
+            <option key={playlist.id}>{playlist.title}</option>
         ))
 
         return ( 
             <select onChange={selectPlaylist}>
+                <option id="All">All</option>
                 {options} 
             </select>
         )
     }
 
     function selectPlaylist(e) {
-        console.log(e.target.value)
+        if (e.target.value == "All") {
+            setPlaylists(user.playlists)
+        }
+        else {
+            const selected = user.playlists.filter(playlist => playlist.title == e.target.value)
+            setPlaylists(selected)
+        }
     }
 
-
-    
-                
-
-    let playlistItems
-    if (user) {
-        playlistItems = user.playlists.map(playlist => (
+    const playlistItems = playlists.map(playlist => (
             <PlaylistCard key={playlist.id} playlist={playlist}/>
-        ))
-        console.log(user.playlists)
-    }
+    ))
+
 
     return (
         <div className="container">
