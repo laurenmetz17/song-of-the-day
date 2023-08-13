@@ -7,6 +7,8 @@ import UserContext from './UserContext';
 //use of toISO string throws off date
 function TodayHome({setUser}) {
 
+    console.log(setUser)
+
     const date = new Date()
 
     const [users, setUsers] = useState([])

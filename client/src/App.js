@@ -24,6 +24,7 @@ function App() {
         resp.json()
         .then((currentUser) => {
             setUser(currentUser)
+            //setPlaylists here?
         }) 
       }
       else {

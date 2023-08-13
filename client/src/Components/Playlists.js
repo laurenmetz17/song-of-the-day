@@ -1,14 +1,16 @@
+
 import UserContext from "./UserContext";
 import {useContext, useState} from 'react';
 import PlaylistCard from "./PlaylistCard";
 
-function Playlists({}) {
+function Playlists() {
 
-    const user = useContext(UserContext)
+    const user = useContext(UserContext); 
+
+    //when no user or when refresh it errors out
+    console.log(user)
+
     const [playlists, setPlaylists] = useState(user.playlists)
-    
-
-    console.log(playlists)
 
     function dropDown() {
 

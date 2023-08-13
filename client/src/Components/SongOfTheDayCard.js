@@ -69,8 +69,8 @@ function SongOfTheDayCard({setUser}) {
                 resp.json()
                 .then((newPost) => {
                     const newPosts = user.posts.map(post => post.id == newPost.id? newPost : post)
-                    user.posts = newPosts
-                    setUser(user)
+                    const newUser = {...user, posts: newPosts}
+                    setUser(newUser)
                     //state not actually updating
                 })
 

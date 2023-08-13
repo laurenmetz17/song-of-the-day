@@ -2,14 +2,10 @@ import SongCard from "./SongCard";
 
 function PlaylistCard({playlist}) {
 
-    console.log(playlist.songs)
-
     const songItems = playlist.songs.map(song => (
         <SongCard key={song.id} song={song}/>
 
     ))
-
-    
 
     return (
         <div>
