@@ -9,11 +9,9 @@ function PostCard({post, users}) {
 
     return (
         <div className="post_card">
-            <h3>{post.user_name}</h3>
-            <img src={postSong.art} alt="album cover"></img>
-            <p>{postSong.title}</p>
-            <p>{postSong.artist}</p>
-            <p>{post.comment}</p>
+            <h3 className="post_user">{post.user_name}</h3>
+            <SongCard song={postSong}/>
+            <p className="post_comment">{post.comment}</p>
         </div>
     )
 }

@@ -107,11 +107,12 @@ function CreatePost({setUser}) {
                             .then((newPlaylist) => {
                                 setCurrentPlaylist(newPlaylist)
                                 console.log(newPlaylist)
+                                //add to user object
                                 const newPlaylists = [...user.playlists, newPlaylist]
-                                user.playlists = newPlaylists
-                                console.log(user.playlists)
-
-                                //add to users playlists
+                                const newUser = {...user, playlists: newPlaylists}
+                                setUser(newUser)
+                                //update the playlist
+                                //console.log(playlists.filter(playlist => playlist.id == currentPlaylist.id))
                             })
                         }
                         else {
@@ -139,14 +140,11 @@ function CreatePost({setUser}) {
                     .then((newPost) => {
                         //reset selected song and hide comment date form
                         setSelectedSong(null)
-                        //update user post and song arrays
+                        //update user post and song arrays in user
                         const newPosts = [...user.posts, newPost]
-                        user.posts =  newPosts
                         const newSongs = [...user.songs, selectedSong]
-                        const newUser = {...user, songs: newSongs}
+                        const newUser = {...user, songs: newSongs, posts: newPosts}
                         setUser(newUser)
-                        
-                        console.log(user)
                     })
                 }
                 else {

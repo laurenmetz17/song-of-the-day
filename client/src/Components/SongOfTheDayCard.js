@@ -1,6 +1,7 @@
 import UserContext from "./UserContext";
 import {useContext, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import SongCard from "./SongCard";
 
 function SongOfTheDayCard({setUser}) {
 
@@ -31,10 +32,8 @@ function SongOfTheDayCard({setUser}) {
             return (
                 <div className="post_card">
                     <h1>Today's Song</h1>
-                    <img src={todaySong.art} alt="album cover"></img>
-                    <p>{todaySong.title}</p>
-                    <p>{todaySong.artist}</p>
-                    <p>{todayPost.comment}</p>
+                    <SongCard song={todaySong}/>
+                    <p className="post_comment">{todayPost.comment}</p>
                     {showEdit ? showForm(): <button onClick={() => setShowEdit(true)}>Edit Comment</button>}
                 </div>
             )

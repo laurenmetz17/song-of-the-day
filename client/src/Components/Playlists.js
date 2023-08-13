@@ -2,10 +2,11 @@ import UserContext from "./UserContext";
 import {useContext, useState} from 'react';
 import PlaylistCard from "./PlaylistCard";
 
-function Playlists() {
+function Playlists({}) {
 
     const user = useContext(UserContext)
     const [playlists, setPlaylists] = useState(user.playlists)
+    
 
     console.log(playlists)
 

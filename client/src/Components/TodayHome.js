@@ -4,6 +4,7 @@ import PostCard from './PostCard';
 import UserContext from './UserContext';
 
 
+//use of toISO string throws off date
 function TodayHome({setUser}) {
 
     const date = new Date()
@@ -50,7 +51,7 @@ function TodayHome({setUser}) {
     return (
         <div className='container'>
             <SongOfTheDayCard setUser={setUser}/>
-            <h1>Songs Of the Day</h1>
+            <h1 className='headers'>Songs Of the Day</h1>
             {songsOfTheDay}
         </div>
         

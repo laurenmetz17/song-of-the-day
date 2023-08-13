@@ -35,6 +35,7 @@ function App() {
     })
   },[])
 
+
   return (
     <div className='App'>
       <UserContext.Provider value={user}>
@@ -44,26 +45,13 @@ function App() {
               <Route path="/" element={<TodayHome/>}/> {/*replace with about*/}
               <Route path="/todayHome" element={<TodayHome setUser={setUser}/>}/>
               <Route path="/postToday" element={<CreatePost setUser={setUser}/>}/>
-              <Route path="/playlistsPage" element={<Playlists/>}/>
+              <Route path="/playlistsPage" element={<Playlists />}/>
               <Route path="/login" element={<Login setUser={setUser}/>}/> {/* add in link to signup*/}
               <Route path="/logout" element={<Logout setUser={setUser}/>}/>
           </Routes>
         </div>
       </UserContext.Provider> 
     </div>
-    /*
-    <div className="App">
-      <UserContext.Provider value={user}>
-        <NavBar/>
-        <TodayHome/>
-        <CreatePost/>
-        <Playlists/>
-        <Login setUser={setUser}/>
-        <Signup/>
-        <Logout setUser={setUser}/>
-      </UserContext.Provider>
-    </div>
-  */
   );
 }
 
