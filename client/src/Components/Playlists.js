@@ -4,7 +4,30 @@ import PlaylistCard from "./PlaylistCard";
 
 function Playlists() {
 
+    //add playlist search
+
     const user = useContext(UserContext)
+
+    function dropDown() {
+
+        const options = user.playlists.map(playlist => (
+            <option playlist={playlist} key={playlist.id}>{playlist.title}</option>
+        ))
+
+        return ( 
+            <select onChange={selectPlaylist}>
+                {options} 
+            </select>
+        )
+    }
+
+    function selectPlaylist(e) {
+        console.log(e.target.value)
+    }
+
+
+    
+                
 
     let playlistItems
     if (user) {
@@ -17,6 +40,7 @@ function Playlists() {
     return (
         <div className="container">
             {user ? <h1>Your Playlists</h1> : <p>Log in to see your playlists.</p>}
+            {user ? dropDown(): null}
             {playlistItems}
         </div>
     )
