@@ -36,3 +36,35 @@
 .site-name {
     font-size: 2rem;
 }
+
+.song_card {
+    margin: auto;
+    width: 60%;
+    border-style: groove;
+    border-color: rgb(13, 186, 128);
+    border-width: medium;
+    border-radius: 15px;
+    align-items: center;
+    display: flex;
+}
+
+.song_card .left {
+    padding: 20px;
+    margin-right: auto;
+    margin-top: auto;
+    height: 100%; 
+    width: 50%;
+}
+.song_card .right {
+    margin-left: auto;
+    height: 100%;
+    width: 50%
+}
+
+* {
+    font-weight: bold;
+}
+
+body {
+    background-color: rgb(182, 245, 143);
+}
