@@ -11,6 +11,8 @@ function SongOfTheDayCard({setUser}) {
     const [editComment, setEditComment] = useState("")
     const date = new Date()
 
+    console.log(setUser)
+
     //if the user has as post today get that post and song
     let todayPost
     let todaySong
@@ -71,7 +73,6 @@ function SongOfTheDayCard({setUser}) {
                     const newPosts = user.posts.map(post => post.id == newPost.id? newPost : post)
                     const newUser = {...user, posts: newPosts}
                     setUser(newUser)
-                    //state not actually updating
                 })
 
             }
@@ -81,6 +82,8 @@ function SongOfTheDayCard({setUser}) {
         })
 
     }
+    //when hit edit comment try to preload comment still
+    
 
 
     return (

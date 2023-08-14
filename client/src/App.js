@@ -16,6 +16,7 @@ import Playlists from './Components/Playlists';
 function App() {
 
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch("/me")
@@ -24,6 +25,7 @@ function App() {
         resp.json()
         .then((currentUser) => {
             setUser(currentUser)
+            setLoading(false)
             //setPlaylists here?
         }) 
       }
@@ -42,14 +44,14 @@ function App() {
       <UserContext.Provider value={user}>
         <NavBar/>
         <div className='container'>
-          <Routes>
+          {loading ? <h3>Loading...</h3>: <Routes>
               <Route path="/" element={<TodayHome/>}/> {/*replace with about*/}
               <Route path="/todayHome" element={<TodayHome setUser={setUser}/>}/>
               <Route path="/postToday" element={<CreatePost setUser={setUser}/>}/>
               <Route path="/playlistsPage" element={<Playlists />}/>
               <Route path="/login" element={<Login setUser={setUser}/>}/> {/* add in link to signup*/}
               <Route path="/logout" element={<Logout setUser={setUser}/>}/>
-          </Routes>
+          </Routes>}
         </div>
       </UserContext.Provider> 
     </div>

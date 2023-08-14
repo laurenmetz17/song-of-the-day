@@ -6,7 +6,7 @@ import SongOfTheDayCard from './SongOfTheDayCard';
 
 function CreatePost({setUser}) {
 
-    //potential issue when they select song after already doing it once
+    //hide song select after song is selected 
 
     const user = useContext(UserContext); 
     const navigate = useNavigate()
@@ -245,7 +245,6 @@ function CreatePost({setUser}) {
         }    
     }
 
-    //if song of the day already selected show your song of the day and post for prior dates
     //validate date not more than present on backend
 
     return (
