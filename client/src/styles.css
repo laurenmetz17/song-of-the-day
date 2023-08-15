@@ -1,6 +1,6 @@
 .nav {
-    background-color: rgb(28, 149, 107);
-    color: white;
+    background-color: rgb(26, 8, 73);
+    color: aliceblue;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
@@ -26,7 +26,7 @@
 }
 
 .nav li.active {
-    color: rgb(226, 194, 14);
+    color: rgb(230, 106, 213);
 }
 
 .nav li.hover {
@@ -41,7 +41,7 @@
     margin: auto;
     width: 60%;
     border-style: groove;
-    border-color: rgb(13, 186, 128);
+    border-color: rgb(194, 194, 243);
     border-width: medium;
     border-radius: 15px;
     align-items: center;
@@ -66,5 +66,6 @@
 }
 
 body {
-    background-color: rgb(182, 245, 143);
+    background-color: rgb(63, 19, 185);
+    color:aliceblue
 }
