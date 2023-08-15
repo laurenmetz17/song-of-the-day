@@ -8,8 +8,23 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
 
     //hide song select after song is selected 
 
+    useEffect(() => {
+        if (user) {
+            let todayPostFind = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
+            console.log(todayPostFind)
+            if (todayPostFind.length !== 0 ) {
+                todayPostFind = todayPostFind[0]
+                setTodayPost(todayPostFind)
+                let todaySongFind = user.songs.find(song => song.id === todayPostFind.song_id)
+                setTodaySong(todaySongFind)   
+            }
+        }   
+        setLoading(false)
+    },[])
+
     const user = useContext(UserContext); 
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(true)
     const date = new Date() //get current date for date limit
     const [songError, setSongError] = useState(false)
     const [songReturn, setSongReturn] = useState([])
@@ -171,7 +186,7 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
                 <div className='container'>
                     <SongOfTheDayCard setUser={setUser} todayPost={todayPost} setTodayPost={setTodayPost} todaySong={todaySong} setTodaySong={setTodaySong}/>
                     <h1>Post for prior dates</h1>
-                    <form className="forms" onSubmit={searchSong} >
+                    {selectedSong ? null : <form className="forms" onSubmit={searchSong} >
                         <h1 className='headers'>Select your Song</h1>
                         <h3 className="headers">Search Song</h3>
                         <div className="inputs">
@@ -183,7 +198,7 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
                             <input name="artist" type="text" onChange={updateSongForm}/>
                         </div>
                         <input type="submit" value="Search Song"/>
-                    </form>
+                    </form>}
                     {songError ? <p style={{color: "red"}}>Invalid Song</p> : null}
                     {songReturnItems}
                     {selectedSong? 
