@@ -1,10 +1,11 @@
 import {React, useState, useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
 
+    const navigate = useNavigate()
     const [signupError, setSignupError] = useState(false)
     const [signupMessage, setSignupMessage] =  useState(false)
-
     const [signupForm, setSignupForm] = useState({
         name: "",
         username: "",
@@ -34,6 +35,9 @@ function Signup() {
                 resp.json()
                 .then((newUser) => {
                     setSignupMessage(true)
+                    setTimeout(() => {
+                    }, "3000");
+                    navigate('/login')
                 }) 
             }
             //else return unporcessable entity response and show error
