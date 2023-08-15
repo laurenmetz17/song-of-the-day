@@ -6,8 +6,7 @@ import SongOfTheDayCard from './SongOfTheDayCard';
 
 function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, setTodayPost, setTodaySong}) {
 
-    //hide song select after song is selected 
-
+    //load in the todaypost
     useEffect(() => {
         if (user) {
             let todayPostFind = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
@@ -162,6 +161,7 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
                         const newPlaylist = {...currentPlaylist, songs: newPlaySongs}
                         console.log(newPlaylist)
                         const newPlaylists = playlists.map(playlists => {})
+                        //set today state
                         setTodayPost(newPost)
                         setTodaySong(selectedSong)
                         //reset selected song and hide comment date form
@@ -180,7 +180,6 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
     }
 
     function postedToday() {
-        //fix this for today  post state
         if (todayPost) {
             return (
                 <div className='container'>

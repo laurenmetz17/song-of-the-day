@@ -39,7 +39,6 @@ function Login({setUser}) {
             }
             //else return unauthorized response and show error
             else {
-                
                 setLogError(true)
                 throw new Error(`HTTP error, status = ${resp.status}`);
             }

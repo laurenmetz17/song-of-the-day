@@ -11,7 +11,6 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
     const [showEdit,setShowEdit] = useState(false)
     const [editComment, setEditComment] = useState(null)
     const date = new Date()
-    //need to update both songs of the day on create post too 
 
     //if the user has as post today get that post and song
     useEffect(() => {
@@ -29,7 +28,7 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
     },[])
 
     function buttonRender() {
-        console.log(user)
+        //render the naavigate to post button if there is a user
         if (user) {
             return <button onClick={() => {navigate('/postToday')}}>Choose Your Song Of The Day</button>
         }
@@ -52,6 +51,7 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
     function handleEdit(e) {
         e.preventDefault();
         e.target.children[0].value = ''
+        //patch the post
         fetch(`/posts/${todayPost.id}`, {
             method: 'PATCH',
             headers: {
@@ -62,6 +62,7 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
             if (resp.ok) {
                 resp.json()
                 .then((newPost) => {
+                    //update user and set today post state
                     const newPosts = user.posts.map(post => post.id == newPost.id? newPost : post)
                     const newUser = {...user, posts: newPosts}
                     setTodayPost(newPost)
@@ -88,6 +89,7 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
         })
         .then(resp => console.log(resp))
         .then(() => {
+            //update state
             console.log(todayPost)
             const newPosts = user.posts.filter(post => post.id != todayPost.id)
             const newUser = {...user, posts: newPosts}

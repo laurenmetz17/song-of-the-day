@@ -9,13 +9,13 @@ function SongReturnCard({song, setSongReturn, setSelectedSong}) {
             if (resp.ok) {
                 resp.json()
                 .then(data => { 
+                    //reset song retrun and set selected song
                     setSongReturn([])
                     setSelectedSong(data)
                 })
-                //have song from database
             }
             else {
-                console.log(song)
+                //if song doesn't exist create it
                 fetch('songs', {
                     method: 'POST',
                     headers: {
@@ -27,6 +27,7 @@ function SongReturnCard({song, setSongReturn, setSelectedSong}) {
                         if (resp.ok) {
                             resp.json()
                             .then((newSong) => {
+                                //reset song return and set selected song
                                 setSongReturn([])
                                 setSelectedSong(newSong)
                             })
@@ -35,7 +36,6 @@ function SongReturnCard({song, setSongReturn, setSelectedSong}) {
                             console.log(resp)
                         }
                     });
-
             }
         })
 

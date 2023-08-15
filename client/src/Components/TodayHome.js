@@ -13,6 +13,7 @@ function TodayHome({setUser, todayPost, todaySong, setTodayPost, setTodaySong}) 
     const user = useContext(UserContext); 
 
     useEffect(() => {
+        //get all users
         fetch("/users")
         .then(resp => {
           if (resp.ok) {
@@ -30,6 +31,8 @@ function TodayHome({setUser, todayPost, todaySong, setTodayPost, setTodaySong}) 
         })
     },[])
 
+
+    //get song of the day for each user and render a post for each 
     let songsOfTheDay = []
     users.forEach(userItem => {
         let songOfTheDay

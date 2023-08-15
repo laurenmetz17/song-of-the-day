@@ -6,7 +6,7 @@ function PlaylistCard({playlist}) {
     const [loading, setLoading] = useState(true)
 
     const songs = playlist.songs
-    console.log(songs)
+
     const songItems = playlist.songs.map(song => (
         <SongCard key={song.id} song={song}/>
     ))

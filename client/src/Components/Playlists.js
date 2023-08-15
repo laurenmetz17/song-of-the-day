@@ -14,11 +14,11 @@ function Playlists({playlists, setPlaylists}) {
     }
 
     function dropDown() {
-
+        //make option for each playlist
         const options = user.playlists.map(playlist => (
             <option key={playlist.id}>{playlist.title}</option>
         ))
-
+        //return the select menu
         return ( 
             <select onChange={selectPlaylist}>
                 <option id="All">All</option>
@@ -28,6 +28,7 @@ function Playlists({playlists, setPlaylists}) {
     }
 
     function selectPlaylist(e) {
+        //filter the playlists if select is not set to all
         if (e.target.value == "All") {
             setPlaylists(user.playlists)
         }
@@ -40,8 +41,6 @@ function Playlists({playlists, setPlaylists}) {
     const playlistItems = playlists.map(playlist => (
         <PlaylistCard key={playlist.id} playlist={playlist}/>
     ))
-
-    console.log(playlistItems)
 
     return (
         <div className="container">

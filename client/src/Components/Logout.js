@@ -6,6 +6,7 @@ function Logout({setUser, setTodayPost, setTodaySong}) {
     const navigate = useNavigate()
 
     function handleLogout(e) {
+        //logout and navigate to home page
         e.preventDefault();
 
         fetch('logout', {
@@ -19,6 +20,7 @@ function Logout({setUser, setTodayPost, setTodaySong}) {
             console.log(resp)
         })
         .then(() => {
+            //reset states
             setUser(null)
             setTodayPost(null)
             setTodaySong(null)
