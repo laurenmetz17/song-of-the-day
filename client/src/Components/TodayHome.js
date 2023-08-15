@@ -34,19 +34,20 @@ function TodayHome({setUser}) {
 
     console.log(users)
 
-    let songsOfTheDay
+    let songsOfTheDay = []
     users.forEach(userItem => {
-        console.log(userItem)
+        let songOfTheDay
         let todayPosts = userItem.posts.filter(post => post.date == date.toISOString().split('T')[0])
         console.log(todayPosts)
         if (user) {
             todayPosts = todayPosts.filter(post => post.user_id != user.id)
         }
         if (todayPosts.length !== 0) {
-            songsOfTheDay = todayPosts.map(post => (
+            songOfTheDay = todayPosts.map(post => (
                 <PostCard key={post.id} post={post} users={users}/>
             ))
         }
+        songsOfTheDay.push(songOfTheDay)
     })
 
     return (
