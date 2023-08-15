@@ -161,9 +161,13 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
                         const newPlaylist = {...currentPlaylist, songs: newPlaySongs}
                         console.log(newPlaylist)
                         const newPlaylists = playlists.map(playlists => {})
-                        //set today state
-                        setTodayPost(newPost)
-                        setTodaySong(selectedSong)
+                        const date = new Date()
+                        const today = date.toISOString().split('T')[0]
+                        if(newPost.date == today) {
+                            //set today state
+                            setTodayPost(newPost)
+                            setTodaySong(selectedSong)
+                        }
                         //reset selected song and hide comment date form
                         setSelectedSong(null)
                     })

@@ -7,7 +7,7 @@ function Playlists({playlists, setPlaylists}) {
 
     const user = useContext(UserContext); 
     const [loading, setLoading] = useState(true)
-
+    
     if (loading && user) {
         setPlaylists(user.playlists)
         setLoading(false)
@@ -41,7 +41,7 @@ function Playlists({playlists, setPlaylists}) {
     const playlistItems = playlists.map(playlist => (
         <PlaylistCard key={playlist.id} playlist={playlist}/>
     ))
-
+    
     return (
         <div className="container">
             {user ? <h1>Your Playlists</h1> : <p>Log in to see your playlists.</p>}
