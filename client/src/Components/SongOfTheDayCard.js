@@ -24,36 +24,18 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
                 let todaySongFind = user.songs.find(song => song.id === todayPostFind.song_id)
                 setTodaySong(todaySongFind)   
             }
-            setLoading(false)
         }   
+        setLoading(false)
     },[])
 
-    
-    
-
-    function postMade() {
-        //if there is a post today render the post, if not render a button to go the create post page
-        if (todayPost == {}) {
+    function buttonRender() {
+        console.log(user)
+        if (user) {
             return <button onClick={() => {navigate('/postToday')}}>Choose Your Song Of The Day</button>
-        }
-        else {
-            return (
-                <div className="post_card">
-                    <h1>Today's Song</h1>
-                    <SongCard song={todaySong}/>
-                    <p className="post_comment">{todayPost.comment}</p>
-                    {showEdit ? showForm(): <button onClick={() => {
-                        setEditComment(todayPost.comment)
-                        setShowEdit(true)
-                    }}>Edit Comment</button>}
-                    <button onClick={handleDelete}>Delete Post</button>
-                </div>
-            )
         }
     }
 
     function showForm() {
-
         return (
             <form onSubmit={handleEdit}>
                 <input type="text" name="comment_edit" value={editComment} onChange={updateComment}/>
@@ -116,7 +98,6 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
         })
     }
 
-
     return (
         <div>
             {loading ? <p>loading...</p>: <div className="song_of_the_day_card">
@@ -133,7 +114,7 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
                     }}>Edit Comment</button>}
                     <button id={todayPost.id} onClick={handleDelete}>Delete Post</button>
                 </div> : 
-                <button onClick={() => {navigate('/postToday')}}>Choose Your Song Of The Day</button>}
+                buttonRender()}
             </div>}
         </div>
         )

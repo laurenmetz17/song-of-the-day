@@ -7,8 +7,6 @@ import UserContext from './UserContext';
 //use of toISO string throws off date
 function TodayHome({setUser, todayPost, todaySong, setTodayPost, setTodaySong}) {
 
-    console.log(setUser)
-
     const date = new Date()
 
     const [users, setUsers] = useState([])
@@ -31,8 +29,6 @@ function TodayHome({setUser, todayPost, todaySong, setTodayPost, setTodaySong}) 
           console.error(error);
         })
     },[])
-
-    console.log(users)
 
     let songsOfTheDay = []
     users.forEach(userItem => {

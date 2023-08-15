@@ -1,8 +1,7 @@
 import {React} from 'react'
 import {useNavigate} from 'react-router-dom'
-//issue with useNavigate here but works in other components
 
-function Logout({setUser}) {
+function Logout({setUser, setTodayPost, setTodaySong}) {
 
     const navigate = useNavigate()
 
@@ -21,6 +20,8 @@ function Logout({setUser}) {
         })
         .then(() => {
             setUser(null)
+            setTodayPost(null)
+            setTodaySong(null)
             navigate('/todayHome')
         })
     }
