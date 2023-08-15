@@ -75,6 +75,7 @@ function SongOfTheDayCard({setUser}) {
                     const newPosts = user.posts.map(post => post.id == newPost.id? newPost : post)
                     const newUser = {...user, posts: newPosts}
                     setUser(newUser)
+                    setShowEdit(false)
                 })
 
             }

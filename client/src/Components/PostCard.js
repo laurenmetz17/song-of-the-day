@@ -9,9 +9,9 @@ function PostCard({post, users}) {
 
     return (
         <div className="post_card">
-            <h3 className="post_user">{post.user_name}</h3>
-            <SongCard song={postSong}/>
+            <h3 className="post_user">{post.user_name} :</h3>
             <p className="post_comment">{post.comment}</p>
+            <SongCard song={postSong}/>
         </div>
     )
 }
