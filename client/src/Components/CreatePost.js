@@ -167,7 +167,7 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
 
     function postedToday() {
         //fix this for today  post state
-        //let todayPost = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
+        debugger;
         if (todayPost) {
             return (
                 <div className='container'>

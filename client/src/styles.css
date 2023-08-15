@@ -1,6 +1,8 @@
 .nav {
-    background-color: rgb(26, 8, 73);
-    color: aliceblue;
+    background-color: #0E0b16;
+    border-color: #e7dfdd;
+    border-style: solid;
+    color: #e7dfdd;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
@@ -26,7 +28,7 @@
 }
 
 .nav li.active {
-    color: rgb(230, 106, 213);
+    color: #a239ca;
 }
 
 .nav li.hover {
@@ -41,7 +43,7 @@
     margin: auto;
     width: 60%;
     border-style: groove;
-    border-color: rgb(194, 194, 243);
+    border-color: #4717f6;
     border-width: medium;
     border-radius: 15px;
     align-items: center;
@@ -66,6 +68,6 @@
 }
 
 body {
-    background-color: rgb(63, 19, 185);
-    color:aliceblue
+    background-color: #0E0b16;
+    color: #e7dfdd;
 }

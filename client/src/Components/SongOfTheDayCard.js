@@ -82,6 +82,7 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
                 .then((newPost) => {
                     const newPosts = user.posts.map(post => post.id == newPost.id? newPost : post)
                     const newUser = {...user, posts: newPosts}
+                    setTodayPost(newPost)
                     setUser(newUser)
                     setShowEdit(false)
                 })
