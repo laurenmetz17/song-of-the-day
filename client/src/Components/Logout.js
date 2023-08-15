@@ -1,7 +1,7 @@
 import {React} from 'react'
 import {useNavigate} from 'react-router-dom'
 
-function Logout({setUser, setTodayPost, setTodaySong}) {
+function Logout({setUser, setTodayPost, setTodaySong, setPlaylists}) {
 
     const navigate = useNavigate()
 
@@ -22,6 +22,7 @@ function Logout({setUser, setTodayPost, setTodaySong}) {
         .then(() => {
             //reset states
             setUser(null)
+            setPlaylists([])
             setTodayPost(null)
             setTodaySong(null)
             navigate('/todayHome')
