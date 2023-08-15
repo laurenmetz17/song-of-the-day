@@ -18,6 +18,8 @@ function App() {
   const [user, setUser] = useState(null)
   const [playlists, setPlaylists] = useState([])
   const [loading, setLoading] = useState(true)
+  const [todayPost, setTodayPost] = useState(null)
+  const [todaySong, setTodaySong] = useState(null)
 
   useEffect(() => {
     fetch("/me")
@@ -49,8 +51,8 @@ function App() {
         <div className='container'>
           {loading ? <h3>Loading...</h3>: <Routes>
               <Route path="/" element={<TodayHome/>}/> {/*replace with about*/}
-              <Route path="/todayHome" element={<TodayHome setUser={setUser}/>}/>
-              <Route path="/postToday" element={<CreatePost setUser={setUser} setPlaylists={setPlaylists} playlists={playlists}/>}/>
+              <Route path="/todayHome" element={<TodayHome setUser={setUser} todayPost={todayPost} setTodayPost={setTodayPost} todaySong={todaySong} setTodaySong={setTodaySong}/>}/>
+              <Route path="/postToday" element={<CreatePost setUser={setUser} setPlaylists={setPlaylists} playlists={playlists} todayPost={todayPost} setTodayPost={setTodayPost} todaySong={todaySong} setTodaySong={setTodaySong}/>}/>
               <Route path="/playlistsPage" element={<Playlists playlists={playlists} setPlaylists={setPlaylists} />}/>
               <Route path="/login" element={<Login setUser={setUser}/>}/> {/* add in link to signup*/}
               <Route path="/logout" element={<Logout setUser={setUser}/>}/>

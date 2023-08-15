@@ -5,7 +5,7 @@ import UserContext from './UserContext';
 
 
 //use of toISO string throws off date
-function TodayHome({setUser}) {
+function TodayHome({setUser, todayPost, todaySong, setTodayPost, setTodaySong}) {
 
     console.log(setUser)
 
@@ -52,7 +52,7 @@ function TodayHome({setUser}) {
 
     return (
         <div className='container'>
-            <SongOfTheDayCard setUser={setUser}/>
+            <SongOfTheDayCard setUser={setUser} todayPost={todayPost} setTodayPost={setTodayPost} todaySong={todaySong} setTodaySong={setTodaySong}/>
             <h1 className='headers'>Songs Of the Day</h1>
             {songsOfTheDay}
         </div>

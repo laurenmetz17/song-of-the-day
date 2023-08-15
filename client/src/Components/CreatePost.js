@@ -4,7 +4,7 @@ import UserContext from './UserContext';
 import SongReturnCard from './SongReturnCard';
 import SongOfTheDayCard from './SongOfTheDayCard';
 
-function CreatePost({setUser, setPlaylists, playlists}) {
+function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, setTodayPost, setTodaySong}) {
 
     //hide song select after song is selected 
 
@@ -147,9 +147,9 @@ function CreatePost({setUser, setPlaylists, playlists}) {
                         console.log(newPlaySongs)
                         const newPlaylist = {...currentPlaylist, songs: newPlaySongs}
                         console.log(newPlaylist)
-                        const newPlaylists = playlists.map(playlist => playlist.id == currentPlaylist.id ? newPlaylist : playlist)
-                        console.log(newPlaylists)
-                        setPlaylists(newPlaylists)           
+                        const newPlaylists = playlists.map(playlists => {})
+                        setTodayPost(newPost)
+                        setTodaySong(selectedSong)
                         //reset selected song and hide comment date form
                         setSelectedSong(null)
                     })
@@ -166,11 +166,12 @@ function CreatePost({setUser, setPlaylists, playlists}) {
     }
 
     function postedToday() {
-        let todayPost = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
-        if (todayPost.length > 0) {
+        //fix this for today  post state
+        //let todayPost = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
+        if (todayPost) {
             return (
                 <div className='container'>
-                    <SongOfTheDayCard setUser={setUser}/>
+                    <SongOfTheDayCard setUser={setUser} todayPost={todayPost} setTodayPost={setTodayPost} todaySong={todaySong} setTodaySong={setTodaySong}/>
                     <h1>Post for prior dates</h1>
                     <form className="forms" onSubmit={searchSong} >
                         <h1 className='headers'>Select your Song</h1>

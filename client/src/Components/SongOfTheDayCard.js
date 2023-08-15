@@ -1,32 +1,39 @@
 import UserContext from "./UserContext";
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import SongCard from "./SongCard";
 
-function SongOfTheDayCard({setUser}) {
+function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setTodaySong}) {
 
     const user = useContext(UserContext)
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(true)
     const [showEdit,setShowEdit] = useState(false)
     const [editComment, setEditComment] = useState(null)
     const date = new Date()
+    //need to update both songs of the day on create post too 
 
     //if the user has as post today get that post and song
-    let todayPost
-    let todaySong
-    if (user) {
-        todayPost = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
-        if (todayPost.length !== 0 ) {
-            todayPost = todayPost[0]
-            todaySong = user.songs.find(song => song.id === todayPost.song_id)
-            
-        }
-    }
+    useEffect(() => {
+        if (user) {
+            let todayPostFind = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
+            console.log(todayPostFind)
+            if (todayPostFind.length !== 0 ) {
+                todayPostFind = todayPostFind[0]
+                setTodayPost(todayPostFind)
+                let todaySongFind = user.songs.find(song => song.id === todayPostFind.song_id)
+                setTodaySong(todaySongFind)   
+            }
+            setLoading(false)
+        }   
+    },[])
+
+    
     
 
     function postMade() {
         //if there is a post today render the post, if not render a button to go the create post page
-        if (todayPost.length == 0) {
+        if (todayPost == {}) {
             return <button onClick={() => {navigate('/postToday')}}>Choose Your Song Of The Day</button>
         }
         else {
@@ -39,6 +46,7 @@ function SongOfTheDayCard({setUser}) {
                         setEditComment(todayPost.comment)
                         setShowEdit(true)
                     }}>Edit Comment</button>}
+                    <button onClick={handleDelete}>Delete Post</button>
                 </div>
             )
         }
@@ -86,13 +94,48 @@ function SongOfTheDayCard({setUser}) {
 
     }
 
+    function handleDelete(e) {
+        e.preventDefault();
+        fetch(`posts/${e.target.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(null), 
+        })
+        .then(resp => console.log(resp))
+        .then(() => {
+            console.log(todayPost)
+            const newPosts = user.posts.filter(post => post.id != todayPost.id)
+            const newUser = {...user, posts: newPosts}
+            setUser(newUser)
+            setTodayPost(null)
+            setTodaySong(null)
+            //update playlists
+        })
+    }
+
+
     return (
-        <div className="song_of_the_day_card">
+        <div>
+            {loading ? <p>loading...</p>: <div className="song_of_the_day_card">
             {user? <h3>Hello {user.name}!</h3> :<h3>Login to make posts</h3>}
             <h4 className="date">{date.toDateString().substring(4,10)}, {date.getFullYear()}</h4>
-            {user ? postMade() : null}
+            {todayPost ? 
+                <div className="post_card">
+                    <h1>Today's Song</h1>
+                    <SongCard song={todaySong}/>
+                    <p className="post_comment">{todayPost.comment}</p>
+                    {showEdit ? showForm(): <button onClick={() => {
+                        setEditComment(todayPost.comment)
+                        setShowEdit(true)
+                    }}>Edit Comment</button>}
+                    <button id={todayPost.id} onClick={handleDelete}>Delete Post</button>
+                </div> : 
+                <button onClick={() => {navigate('/postToday')}}>Choose Your Song Of The Day</button>}
+            </div>}
         </div>
-    )
+        )
 }
 
 export default SongOfTheDayCard;
