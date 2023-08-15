@@ -41,6 +41,7 @@
 
 .song_card {
     margin: auto;
+    margin-bottom: 20px;
     width: 60%;
     border-style: groove;
     border-color: #4717f6;
