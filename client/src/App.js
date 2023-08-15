@@ -56,6 +56,7 @@ function App() {
               <Route path="/playlistsPage" element={<Playlists playlists={playlists} setPlaylists={setPlaylists} />}/>
               <Route path="/login" element={<Login setUser={setUser}/>}/> {/* add in link to signup*/}
               <Route path="/logout" element={<Logout setUser={setUser} setTodayPost={setTodayPost} setTodaySong={setTodaySong}/>}/>
+              <Route path="/signup" element={<Signup />}/>
           </Routes>}
         </div>
       </UserContext.Provider> 

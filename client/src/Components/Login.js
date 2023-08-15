@@ -68,6 +68,7 @@ function Login({setUser}) {
                 <input name="submit" type="submit" value="Submit"/>
             </form>
             {logError ? <p style={{color: "red"}}>Invalid Username or Password</p> : null}
+            <button className="signup_button" onClick={() => navigate('/signup')}>Or Sign Up!</button>
         </div>
     )
 }
