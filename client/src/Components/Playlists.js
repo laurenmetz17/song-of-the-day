@@ -3,14 +3,15 @@ import UserContext from "./UserContext";
 import {useContext, useState} from 'react';
 import PlaylistCard from "./PlaylistCard";
 
-function Playlists() {
+function Playlists({playlists, setPlaylists}) {
 
     const user = useContext(UserContext); 
+    const [loading, setLoading] = useState(true)
 
-    //when no user or when refresh it errors out
-    console.log(user)
-
-    const [playlists, setPlaylists] = useState(user.playlists)
+    if (loading && user) {
+        setPlaylists(user.playlists)
+        setLoading(false)
+    }
 
     function dropDown() {
 
@@ -37,9 +38,10 @@ function Playlists() {
     }
 
     const playlistItems = playlists.map(playlist => (
-            <PlaylistCard key={playlist.id} playlist={playlist}/>
+        <PlaylistCard key={playlist.id} playlist={playlist}/>
     ))
 
+    console.log(playlistItems)
 
     return (
         <div className="container">

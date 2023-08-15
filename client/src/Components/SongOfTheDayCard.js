@@ -8,10 +8,8 @@ function SongOfTheDayCard({setUser}) {
     const user = useContext(UserContext)
     const navigate = useNavigate()
     const [showEdit,setShowEdit] = useState(false)
-    const [editComment, setEditComment] = useState("")
+    const [editComment, setEditComment] = useState(null)
     const date = new Date()
-
-    console.log(setUser)
 
     //if the user has as post today get that post and song
     let todayPost
@@ -21,6 +19,7 @@ function SongOfTheDayCard({setUser}) {
         if (todayPost.length !== 0 ) {
             todayPost = todayPost[0]
             todaySong = user.songs.find(song => song.id === todayPost.song_id)
+            
         }
     }
     
@@ -36,7 +35,10 @@ function SongOfTheDayCard({setUser}) {
                     <h1>Today's Song</h1>
                     <SongCard song={todaySong}/>
                     <p className="post_comment">{todayPost.comment}</p>
-                    {showEdit ? showForm(): <button onClick={() => setShowEdit(true)}>Edit Comment</button>}
+                    {showEdit ? showForm(): <button onClick={() => {
+                        setEditComment(todayPost.comment)
+                        setShowEdit(true)
+                    }}>Edit Comment</button>}
                 </div>
             )
         }
@@ -82,9 +84,6 @@ function SongOfTheDayCard({setUser}) {
         })
 
     }
-    //when hit edit comment try to preload comment still
-    
-
 
     return (
         <div className="song_of_the_day_card">

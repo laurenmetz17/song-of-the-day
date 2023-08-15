@@ -4,7 +4,7 @@ import UserContext from './UserContext';
 import SongReturnCard from './SongReturnCard';
 import SongOfTheDayCard from './SongOfTheDayCard';
 
-function CreatePost({setUser}) {
+function CreatePost({setUser, setPlaylists, playlists}) {
 
     //hide song select after song is selected 
 
@@ -138,13 +138,20 @@ function CreatePost({setUser}) {
                 if (resp.ok) {
                     resp.json()
                     .then((newPost) => {
-                        //reset selected song and hide comment date form
-                        setSelectedSong(null)
                         //update user post and song arrays in user
                         const newPosts = [...user.posts, newPost]
                         const newSongs = [...user.songs, selectedSong]
                         const newUser = {...user, songs: newSongs, posts: newPosts}
                         setUser(newUser)
+                        const newPlaySongs = [...currentPlaylist.songs, selectedSong]
+                        console.log(newPlaySongs)
+                        const newPlaylist = {...currentPlaylist, songs: newPlaySongs}
+                        console.log(newPlaylist)
+                        const newPlaylists = playlists.map(playlist => playlist.id == currentPlaylist.id ? newPlaylist : playlist)
+                        console.log(newPlaylists)
+                        setPlaylists(newPlaylists)           
+                        //reset selected song and hide comment date form
+                        setSelectedSong(null)
                     })
                 }
                 else {

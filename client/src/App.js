@@ -16,6 +16,7 @@ import Playlists from './Components/Playlists';
 function App() {
 
   const [user, setUser] = useState(null)
+  const [playlists, setPlaylists] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -26,10 +27,10 @@ function App() {
         .then((currentUser) => {
             setUser(currentUser)
             setLoading(false)
-            //setPlaylists here?
         }) 
       }
       else {
+        setLoading(false)
         throw new Error(`HTTP error, status = ${resp.status}`);
       }
     })
@@ -37,6 +38,8 @@ function App() {
       console.error(error);
     })
   },[])
+
+
 
 
   return (
@@ -47,8 +50,8 @@ function App() {
           {loading ? <h3>Loading...</h3>: <Routes>
               <Route path="/" element={<TodayHome/>}/> {/*replace with about*/}
               <Route path="/todayHome" element={<TodayHome setUser={setUser}/>}/>
-              <Route path="/postToday" element={<CreatePost setUser={setUser}/>}/>
-              <Route path="/playlistsPage" element={<Playlists />}/>
+              <Route path="/postToday" element={<CreatePost setUser={setUser} setPlaylists={setPlaylists} playlists={playlists}/>}/>
+              <Route path="/playlistsPage" element={<Playlists playlists={playlists} setPlaylists={setPlaylists} />}/>
               <Route path="/login" element={<Login setUser={setUser}/>}/> {/* add in link to signup*/}
               <Route path="/logout" element={<Logout setUser={setUser}/>}/>
           </Routes>}
