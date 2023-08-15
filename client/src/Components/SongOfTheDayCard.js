@@ -122,7 +122,7 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
             {loading ? <p>loading...</p>: <div className="song_of_the_day_card">
             {user? <h3>Hello {user.name}!</h3> :<h3>Login to make posts</h3>}
             <h4 className="date">{date.toDateString().substring(4,10)}, {date.getFullYear()}</h4>
-            {todayPost ? 
+            {todayPost && todaySong ? 
                 <div className="post_card">
                     <h1>Today's Song</h1>
                     <SongCard song={todaySong}/>

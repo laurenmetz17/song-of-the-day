@@ -11,7 +11,6 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
     const user = useContext(UserContext); 
     const navigate = useNavigate()
     const date = new Date() //get current date for date limit
-
     const [songError, setSongError] = useState(false)
     const [songReturn, setSongReturn] = useState([])
     const [selectedSong, setSelectedSong] = useState(null)
@@ -167,7 +166,6 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
 
     function postedToday() {
         //fix this for today  post state
-        debugger;
         if (todayPost) {
             return (
                 <div className='container'>
