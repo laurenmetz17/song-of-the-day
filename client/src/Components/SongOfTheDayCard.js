@@ -92,8 +92,16 @@ function SongOfTheDayCard({setUser, todayPost, setTodayPost, todaySong, setToday
             //update state
             console.log(todayPost)
             const newPosts = user.posts.filter(post => post.id != todayPost.id)
-            const newUser = {...user, posts: newPosts}
+            const currentPlaylist = user.playlists.filter(playlist => playlist.id == todayPost.playlist_id)
+            const newPlaySongs = currentPlaylist[0].songs.filter(song => song.id != todayPost.song_id)
+            const newPlaylist = {...currentPlaylist[0], songs: newPlaySongs}
+            console.log(newPlaylist)
+            const newPlaylists = user.playlists.map(playlist => playlist.id == newPlaylist.id ? newPlaylist : playlist)
+            console.log(newPlaylists)
+            const newUser = {...user, posts: newPosts, playlists: newPlaylists}
+            console.log(newUser)
             setUser(newUser)
+            //setPlaylists(newPlaylists)
             setTodayPost(null)
             setTodaySong(null)
             //update playlists

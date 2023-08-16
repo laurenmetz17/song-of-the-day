@@ -37,7 +37,6 @@ function TodayHome({setUser, todayPost, todaySong, setTodayPost, setTodaySong}) 
     users.forEach(userItem => {
         let songOfTheDay
         let todayPosts = userItem.posts.filter(post => post.date == date.toISOString().split('T')[0])
-        console.log(todayPosts)
         if (user) {
             todayPosts = todayPosts.filter(post => post.user_id != user.id)
         }
