@@ -124,8 +124,7 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
                                 const newPlaylists = [...user.playlists, newPlaylist]
                                 const newUser = {...user, playlists: newPlaylists}
                                 setUser(newUser)
-                                //update the playlist
-                                //console.log(playlists.filter(playlist => playlist.id == currentPlaylist.id))
+                                setPlaylists(newPlaylists)
                             })
                         }
                         else {
@@ -154,13 +153,14 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
                         //update user post and song arrays in user
                         const newPosts = [...user.posts, newPost]
                         const newSongs = [...user.songs, selectedSong]
-                        const newUser = {...user, songs: newSongs, posts: newPosts}
-                        setUser(newUser)
                         const newPlaySongs = [...currentPlaylist.songs, selectedSong]
-                        console.log(newPlaySongs)
                         const newPlaylist = {...currentPlaylist, songs: newPlaySongs}
+                        const newPlaylists = playlists.map(playlist => playlist.id == currentPlaylist.id ? newPlaylist : playlist)
+                        const newUser = {...user, songs: newSongs, posts: newPosts, playlists: newPlaylists}
+                        setUser(newUser)
                         console.log(newPlaylist)
-                        const newPlaylists = playlists.map(playlists => {})
+                        console.log(newPlaylists)
+                        setPlaylists(newPlaylists)
                         const date = new Date()
                         const today = date.toISOString().split('T')[0]
                         if(newPost.date == today) {
@@ -230,7 +230,7 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
             return (
                 <div className='container'>
                     <h1>You haven't posted Today</h1>
-                    <form className="forms" onSubmit={searchSong} >
+                    {selectedSong ? null : <form className="forms" onSubmit={searchSong} >
                         <h1 className='headers'>Select your Song</h1>
                         <h3 className="headers">Search Song</h3>
                         <div className="inputs">
@@ -242,7 +242,7 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
                             <input name="artist" type="text" onChange={updateSongForm}/>
                         </div>
                         <input type="submit" value="Search Song"/>
-                    </form>
+                    </form>}
                     {songError ? <p style={{color: "red"}}>Invalid Song</p> : null}
                     {songReturnItems}
                     {selectedSong? 
