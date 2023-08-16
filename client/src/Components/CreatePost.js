@@ -10,7 +10,6 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
     useEffect(() => {
         if (user) {
             let todayPostFind = (user.posts.filter(post => post.date == date.toISOString().split('T')[0]))
-            console.log(todayPostFind)
             if (todayPostFind.length !== 0 ) {
                 todayPostFind = todayPostFind[0]
                 setTodayPost(todayPostFind)
@@ -26,6 +25,7 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
     const [loading, setLoading] = useState(true)
     const date = new Date() //get current date for date limit
     const [songError, setSongError] = useState(false)
+    const [postError, setPostError] = useState(false)
     const [songReturn, setSongReturn] = useState([])
     const [selectedSong, setSelectedSong] = useState(null)
     const [currentPlaylist, setCurrentPlaylist] = useState(null)
@@ -167,17 +167,21 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
                         }
                         //reset selected song and hide comment date form
                         setSelectedSong(null)
+                        //navigate to song of the day page
+                        navigate('/todayHome')
                     })
                 }
                 else {
+                    setPostError(true)
+                    setTimeout(() => {
+                        setPostError(false)
+                    }, "3000");
                     console.log(resp)
                 }
                 //reset post form and inputs
                 setPostForm({ date: null,song_id: null, playlist_id: null, comment: ""})
                 e.target.children[0].children[1].value=""
             });
-            //navigate to song of the day page
-            navigate('/todayHome')
     }
 
     function postedToday() {
@@ -186,6 +190,7 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
                 <div className='container'>
                     <SongOfTheDayCard setUser={setUser} todayPost={todayPost} setTodayPost={setTodayPost} todaySong={todaySong} setTodaySong={setTodaySong}/>
                     <h1>Post for prior dates</h1>
+                    {postError ? <p style={{color: "red"}} >Post for that date already exists, or comment required</p> : null}
                     {selectedSong ? null : <form className="forms" onSubmit={searchSong} >
                         <h1 className='headers'>Select your Song</h1>
                         <h3 className="headers">Search Song</h3>
@@ -227,6 +232,7 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
             return (
                 <div className='container'>
                     <h1>You haven't posted Today</h1>
+                    {postError ? <p style={{color: "red"}} >Post for that date already exists</p> : null}
                     {selectedSong ? null : <form className="forms" onSubmit={searchSong} >
                         <h1 className='headers'>Select your Song</h1>
                         <h3 className="headers">Search Song</h3>
