@@ -150,17 +150,14 @@ function CreatePost({setUser, setPlaylists, playlists, todayPost, todaySong, set
                 if (resp.ok) {
                     resp.json()
                     .then((newPost) => {
-                        //update user post and song arrays in user
+                        //update user arrays
                         const newPosts = [...user.posts, newPost]
                         const newSongs = [...user.songs, selectedSong]
                         const newPlaySongs = [...currentPlaylist.songs, selectedSong]
                         const newPlaylist = {...currentPlaylist, songs: newPlaySongs}
-                        const newPlaylists = playlists.map(playlist => playlist.id == currentPlaylist.id ? newPlaylist : playlist)
+                        const newPlaylists = user.playlists.map(playlist => playlist.id == currentPlaylist.id ? newPlaylist : playlist)
                         const newUser = {...user, songs: newSongs, posts: newPosts, playlists: newPlaylists}
                         setUser(newUser)
-                        console.log(newPlaylist)
-                        console.log(newPlaylists)
-                        setPlaylists(newPlaylists)
                         const date = new Date()
                         const today = date.toISOString().split('T')[0]
                         if(newPost.date == today) {

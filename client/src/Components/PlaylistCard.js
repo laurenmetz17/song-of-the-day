@@ -3,16 +3,12 @@ import SongCard from "./SongCard";
 
 function PlaylistCard({playlist}) {
 
-    const [loading, setLoading] = useState(true)
-
-    const songs = playlist.songs
-
     const songItems = playlist.songs.map(song => (
         <SongCard key={song.id} song={song}/>
     ))
 
     return (
-        <div>
+        <div className="playlist">
             <h3>{playlist.title}</h3>
             {songItems}
         </div>
