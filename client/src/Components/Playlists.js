@@ -1,17 +1,19 @@
 
 import UserContext from "./UserContext";
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import PlaylistCard from "./PlaylistCard";
 
 function Playlists({playlists, setPlaylists}) {
 
     const user = useContext(UserContext); 
     const [loading, setLoading] = useState(true)
-    
-    if (loading && user) {
-        setPlaylists(user.playlists)
+
+    useEffect(() => {
+        if (user) {
+            setPlaylists(user.playlists)
+        }
         setLoading(false)
-    }
+    },[])
 
     function dropDown() {
         //make option for each playlist
